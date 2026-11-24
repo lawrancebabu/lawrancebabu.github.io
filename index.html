@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lawrance Babu Gain — Senior WordPress &amp; Laravel Developer</title>
   <meta name="description" content="Senior WordPress and Laravel developer in Khulna, Bangladesh, with 15+ years of PHP experience. Custom themes and plugins, WooCommerce, and Laravel web apps. Works US, EU and Asia hours.">
   <meta name="author" content="Lawrance Babu Gain">
@@ -22,68 +22,1887 @@
   <meta name="twitter:title" content="Lawrance Babu Gain — Senior WordPress &amp; Laravel Developer">
   <meta name="twitter:description" content="Senior WordPress and Laravel developer in Khulna, Bangladesh, with 15+ years of PHP experience. Works US, EU and Asia hours.">
   <meta name="twitter:image" content="https://lawrancebabu.github.io/og-image.png">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================================================================
+       1. CSS CUSTOM PROPERTIES & MOTION DESIGN TOKENS
+       ========================================================================== */
+    :root {
+      /* Color Palette */
+      --bg-dark: #07090e;
+      --bg-surface: #0f131c;
+      --bg-surface-elevated: #161c29;
+      --bg-card: rgba(18, 24, 38, 0.7);
+      --bg-glass: rgba(15, 19, 28, 0.65);
+
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-focus: rgba(91, 97, 244, 0.5);
+      --border-highlight: rgba(255, 255, 255, 0.18);
+
+      --text-main: #f4f6fc;
+      --text-muted: #8e9bb3;
+      --text-faint: #525d73;
+
+      --accent-primary: #5b61f4;
+      --accent-glow: rgba(91, 97, 244, 0.4);
+      --accent-cyan: #38bdf8;
+      --accent-emerald: #34d399;
+      --accent-amber: #fbbf24;
+      --accent-gradient: linear-gradient(135deg, #5b61f4 0%, #38bdf8 50%, #34d399 100%);
+      --accent-gradient-subtle: linear-gradient(135deg, rgba(91, 97, 244, 0.15) 0%, rgba(56, 189, 248, 0.1) 100%);
+
+      /* Typography Scale */
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+      --text-display: clamp(2.5rem, 6.5vw, 5.5rem);
+      --text-h1: clamp(2rem, 4.5vw, 3.5rem);
+      --text-h2: clamp(1.5rem, 3vw, 2.25rem);
+      --text-h3: clamp(1.2rem, 2vw, 1.5rem);
+      --text-body: clamp(0.95rem, 1.2vw, 1.05rem);
+      --text-small: 0.85rem;
+      --text-micro: 0.75rem;
+
+      /* Animation Duration & Easing Tokens */
+      --motion-speed-scale: 1;
+      --dur-instant: calc(120ms * var(--motion-speed-scale));
+      --dur-fast: calc(240ms * var(--motion-speed-scale));
+      --dur-normal: calc(450ms * var(--motion-speed-scale));
+      --dur-slow: calc(750ms * var(--motion-speed-scale));
+      --dur-flow: calc(1200ms * var(--motion-speed-scale));
+
+      /* Easing Physics Curves */
+      --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+      /* Layout */
+      --container-max: 1240px;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 24px;
+      --radius-full: 9999px;
+      --shadow-ambient: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 50px -10px var(--accent-glow);
+    }
+
+    /* Accessibility: Respect Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      :root {
+        --motion-speed-scale: 0.0001 !important;
+        --dur-instant: 0.001ms !important;
+        --dur-fast: 0.001ms !important;
+        --dur-normal: 0.001ms !important;
+        --dur-slow: 0.001ms !important;
+        --dur-flow: 0.001ms !important;
+      }
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* Manual Reduced Motion Class Trigger */
+    body.reduced-motion-active {
+      --motion-speed-scale: 0.0001 !important;
+      --dur-instant: 0.001ms !important;
+      --dur-fast: 0.001ms !important;
+      --dur-normal: 0.001ms !important;
+      --dur-slow: 0.001ms !important;
+      --dur-flow: 0.001ms !important;
+    }
+    body.reduced-motion-active *,
+    body.reduced-motion-active *::before,
+    body.reduced-motion-active *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+
+    /* ==========================================================================
+       2. GLOBAL RESETS & BASE STYLING
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-family: var(--font-sans);
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+      background: radial-gradient(circle at 50% 0%, #151b2c 0%, var(--bg-dark) 70%);
+      background-attachment: fixed;
+    }
+
+    ::selection {
+      background: var(--accent-primary);
+      color: #ffffff;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ==========================================================================
+       3. INTERACTIVE BACKGROUND CANVAS
+       ========================================================================== */
+    #ambient-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.65;
+    }
+
+    /* ==========================================================================
+       4. NAVIGATION & TELEMETRY CONTROLS
+       ========================================================================== */
+    .site-nav {
+      position: fixed;
+      top: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 2rem);
+      max-width: var(--container-max);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1.25rem;
+      background: var(--bg-glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      transition: all var(--dur-normal) var(--ease-smooth);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      font-size: 1.05rem;
+    }
+
+    .brand-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--accent-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 15px var(--accent-glow);
+      animation: pulseGlow 4s ease-in-out infinite alternate;
+    }
+
+    .brand-icon svg {
+      width: 16px;
+      height: 16px;
+      fill: #ffffff;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-size: var(--text-small);
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: color var(--dur-fast) ease;
+      position: relative;
+      padding: 0.25rem 0;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-gradient);
+      transition: width var(--dur-fast) var(--ease-smooth);
+      border-radius: 2px;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--text-main);
+    }
+
+    .nav-link:hover::after, .nav-link.active::after {
+      width: 100%;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    /* Speed Control Pill */
+    .speed-controller {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .speed-btn {
+      padding: 4px 10px;
+      font-size: var(--text-micro);
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      border-radius: var(--radius-full);
+      transition: all var(--dur-fast) ease;
+    }
+
+    .speed-btn:hover {
+      color: var(--text-main);
+    }
+
+    .speed-btn.active {
+      background: var(--accent-primary);
+      color: #ffffff;
+      box-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    .motion-toggle-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: var(--radius-full);
+      font-size: var(--text-micro);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all var(--dur-fast) ease;
+    }
+
+    .motion-toggle-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      border-color: var(--border-highlight);
+    }
+
+    .motion-toggle-btn.active {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-emerald);
+      box-shadow: 0 0 8px var(--accent-emerald);
+    }
+
+    .status-dot.paused {
+      background: #ef4444;
+      box-shadow: 0 0 8px #ef4444;
+    }
+
+    /* Mobile Hamburger Menu */
+    .mobile-menu-btn {
+      display: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      align-items: center;
+      justify-content: center;
+      color: var(--text-main);
+    }
+
+    /* ==========================================================================
+       5. HERO SECTION: KINETIC ORCHESTRATION
+       ========================================================================== */
+    .hero-section {
+      position: relative;
+      min-height: 100vh;
+      padding-top: 8rem;
+      padding-bottom: 5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      z-index: 10;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 6px 16px;
+      background: var(--accent-gradient-subtle);
+      border: 1px solid var(--border-focus);
+      border-radius: var(--radius-full);
+      font-size: var(--text-micro);
+      font-family: var(--font-mono);
+      color: var(--accent-cyan);
+      letter-spacing: 0.05em;
+      margin-bottom: 2rem;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.15);
+      transform: translateY(20px);
+      opacity: 0;
+      animation: heroEntrance 0.8s var(--ease-smooth) 0.1s forwards;
+    }
+
+    .hero-title {
+      font-size: var(--text-display);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+      max-width: 980px;
+      margin: 0 auto 1.75rem auto;
+    }
+
+    /* Split Line Typography Reveal Animation */
+    .reveal-line {
+      display: block;
+      overflow: hidden;
+      padding: 0.1em 0;
+    }
+
+    .reveal-word {
+      display: inline-block;
+      transform: translateY(110%) rotate(4deg);
+      opacity: 0;
+      animation: wordReveal 0.9s var(--ease-smooth) forwards;
+    }
+
+    .reveal-word.gradient-text {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 20px rgba(91, 97, 244, 0.4));
+    }
+
+    .hero-subtitle {
+      font-size: var(--text-body);
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto 2.5rem auto;
+      line-height: 1.7;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: heroEntrance 0.9s var(--ease-smooth) 0.6s forwards;
+    }
+
+    /* Action Buttons with Magnetic Feel */
+    .hero-cta-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      margin-bottom: 3.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: heroEntrance 0.9s var(--ease-smooth) 0.8s forwards;
+    }
+
+    .btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      padding: 0.85rem 1.85rem;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: var(--text-body);
+      transition: transform var(--dur-fast) var(--ease-spring), box-shadow var(--dur-fast) ease, border-color var(--dur-fast) ease;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    .btn-primary {
+      background: var(--accent-gradient);
+      color: #ffffff;
+      box-shadow: 0 10px 25px -5px var(--accent-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 15px 35px -5px rgba(91, 97, 244, 0.6);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+      border: 1px solid var(--border-subtle);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--border-highlight);
+      transform: translateY(-3px);
+    }
+
+    .btn-secondary:active {
+      transform: translateY(0);
+    }
+
+    /* Ripple Effect span */
+    .ripple-spark {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.35);
+      transform: scale(0);
+      animation: rippleEffect 0.6s linear;
+      pointer-events: none;
+    }
+
+    /* Hero Telemetry HUD */
+    .telemetry-hud {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 0.6rem 1.25rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono);
+      font-size: var(--text-micro);
+      color: var(--text-muted);
+      opacity: 0;
+      animation: heroEntrance 0.8s var(--ease-smooth) 1s forwards;
+    }
+
+    .telemetry-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .telemetry-value {
+      color: var(--accent-cyan);
+      font-weight: 600;
+    }
+
+    /* Scroll Indicator Anchor */
+    .scroll-down-indicator {
+      margin-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-faint);
+      font-size: var(--text-micro);
+      font-family: var(--font-mono);
+      transition: color var(--dur-fast) ease;
+    }
+
+    .scroll-down-indicator:hover {
+      color: var(--accent-cyan);
+    }
+
+    .mouse-icon {
+      width: 22px;
+      height: 34px;
+      border: 2px solid currentColor;
+      border-radius: 12px;
+      position: relative;
+    }
+
+    .mouse-wheel {
+      width: 4px;
+      height: 7px;
+      background: currentColor;
+      border-radius: 2px;
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: mouseScroll 1.6s infinite ease-in-out;
+    }
+
+    /* ==========================================================================
+       6. SECTION: MOTION PILLARS & REACTIVE 3D CARDS
+       ========================================================================== */
+    .section {
+      position: relative;
+      padding: 6rem 0;
+      z-index: 10;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 3.5rem auto;
+    }
+
+    .section-tag {
+      font-family: var(--font-mono);
+      font-size: var(--text-micro);
+      color: var(--accent-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+      display: inline-block;
+    }
+
+    .section-title {
+      font-size: var(--text-h1);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      font-size: var(--text-body);
+    }
+
+    /* 3D Tilt Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.75rem;
+      perspective: 1000px;
+    }
+
+    .tilt-card {
+      position: relative;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem 2rem;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: var(--shadow-ambient);
+      transform-style: preserve-3d;
+      transition: transform var(--dur-fast) var(--ease-smooth), border-color var(--dur-fast) ease, box-shadow var(--dur-fast) ease;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .tilt-card:hover {
+      border-color: var(--border-focus);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 30px -10px var(--accent-glow);
+    }
+
+    /* Card Glow Overlay following cursor */
+    .card-spotlight {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle 250px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(91, 97, 244, 0.15), transparent 70%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity var(--dur-normal) ease;
+    }
+
+    .tilt-card:hover .card-spotlight {
+      opacity: 1;
+    }
+
+    .card-icon-wrap {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      transform: translateZ(30px);
+      transition: transform var(--dur-normal) var(--ease-spring);
+    }
+
+    .tilt-card:hover .card-icon-wrap {
+      transform: translateZ(45px) scale(1.1);
+      background: var(--accent-gradient-subtle);
+      border-color: var(--accent-cyan);
+    }
+
+    .card-icon-wrap svg {
+      width: 26px;
+      height: 26px;
+      stroke: var(--accent-cyan);
+    }
+
+    .card-title {
+      font-size: var(--text-h3);
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      transform: translateZ(20px);
+    }
+
+    .card-text {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+      transform: translateZ(15px);
+    }
+
+    .card-token-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: var(--text-micro);
+      color: var(--accent-emerald);
+      background: rgba(52, 211, 153, 0.1);
+      border: 1px solid rgba(52, 211, 153, 0.2);
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      transform: translateZ(10px);
+    }
+
+    /* ==========================================================================
+       7. SECTION: INTERACTIVE MOTION SANDBOX (PRESETS & LIVE PLAYGROUND)
+       ========================================================================== */
+    .sandbox-container {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow: var(--shadow-ambient);
+    }
+
+    .sandbox-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 1.25rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .preset-pills {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .preset-pill {
+      padding: 0.5rem 1.1rem;
+      border-radius: var(--radius-full);
+      font-size: var(--text-small);
+      font-weight: 600;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      transition: all var(--dur-fast) ease;
+    }
+
+    .preset-pill:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .preset-pill.active {
+      color: #ffffff;
+      background: var(--accent-primary);
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 15px var(--accent-glow);
+    }
+
+    .replay-trigger-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1.1rem;
+      border-radius: var(--radius-full);
+      font-size: var(--text-small);
+      font-weight: 600;
+      background: var(--accent-gradient-subtle);
+      border: 1px solid var(--border-focus);
+      color: var(--accent-cyan);
+      transition: all var(--dur-fast) ease;
+    }
+
+    .replay-trigger-btn:hover {
+      background: rgba(56, 189, 248, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .replay-trigger-btn svg {
+      width: 16px;
+      height: 16px;
+      transition: transform var(--dur-fast) var(--ease-spring);
+    }
+
+    .replay-trigger-btn:hover svg {
+      transform: rotate(180deg);
+    }
+
+    /* Sandbox Interactive Stage */
+    .sandbox-stage {
+      min-height: 380px;
+      background: var(--bg-dark);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 2.5rem;
+    }
+
+    .stage-grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 30px 30px;
+      pointer-events: none;
+    }
+
+    /* Sandbox Demo 1: Spring Bounce Box */
+    .demo-spring-box {
+      width: 130px;
+      height: 130px;
+      background: var(--accent-gradient);
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: var(--text-small);
+      box-shadow: 0 10px 30px var(--accent-glow);
+      cursor: grab;
+      user-select: none;
+      transition: transform var(--dur-normal) var(--ease-spring);
+    }
+
+    .demo-spring-box.animating {
+      animation: springBounceTest var(--dur-slow) var(--ease-spring);
+    }
+
+    .demo-spring-box:active {
+      cursor: grabbing;
+      transform: scale(0.92);
+    }
+
+    /* Sandbox Demo 2: Magnetic Follow Element */
+    .magnetic-arena {
+      width: 100%;
+      height: 100%;
+      min-height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .magnetic-target {
+      padding: 1.25rem 2.5rem;
+      background: var(--bg-card);
+      border: 2px solid var(--accent-cyan);
+      border-radius: var(--radius-full);
+      color: #ffffff;
+      font-weight: 700;
+      box-shadow: 0 0 30px rgba(56, 189, 248, 0.3);
+      cursor: pointer;
+      transition: transform 0.15s ease-out, box-shadow 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    /* Sandbox Demo 3: Staggered Cascade Group */
+    .stagger-group {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .stagger-item {
+      width: 100px;
+      height: 130px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      opacity: 0;
+      transform: translateY(40px) scale(0.9);
+      transition: opacity var(--dur-normal) var(--ease-smooth), transform var(--dur-normal) var(--ease-spring);
+    }
+
+    .stagger-item.revealed {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .stagger-number {
+      font-family: var(--font-mono);
+      font-size: var(--text-micro);
+      color: var(--accent-emerald);
+    }
+
+    /* Sandbox Demo 4: Morphing Vector Wave */
+    .morph-svg-container {
+      width: 240px;
+      height: 240px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .morph-shape {
+      width: 100%;
+      height: 100%;
+      fill: none;
+      stroke: url(#cyan-purple-grad);
+      stroke-width: 3;
+      stroke-dasharray: 600;
+      stroke-dashoffset: 0;
+      filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.5));
+      animation: morphRotate 12s linear infinite;
+    }
+
+    /* Sandbox Demo 5: Pulse Radar Waves */
+    .pulse-radar-container {
+      position: relative;
+      width: 160px;
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .radar-core {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      box-shadow: 0 0 25px var(--accent-cyan);
+      z-index: 2;
+    }
+
+    .radar-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 2px solid var(--accent-cyan);
+      opacity: 0;
+      animation: radarPulse 2.8s var(--ease-smooth) infinite;
+    }
+
+    .radar-ring:nth-child(2) {
+      animation-delay: 0.9s;
+    }
+    .radar-ring:nth-child(3) {
+      animation-delay: 1.8s;
+    }
+
+    /* Sandbox Code & Token Drawer */
+    .sandbox-code-drawer {
+      margin-top: 1.5rem;
+      background: var(--bg-dark);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1.25rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .drawer-tabs {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .drawer-tab {
+      font-family: var(--font-mono);
+      font-size: var(--text-micro);
+      color: var(--text-muted);
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      transition: all var(--dur-fast) ease;
+    }
+
+    .drawer-tab.active {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .copy-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: var(--text-micro);
+      color: var(--accent-cyan);
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      transition: all var(--dur-fast) ease;
+    }
+
+    .copy-btn:hover {
+      background: rgba(56, 189, 248, 0.2);
+    }
+
+    .drawer-content {
+      padding: 1.25rem;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .code-block {
+      font-family: var(--font-mono);
+      font-size: var(--text-micro);
+      color: #d1d5db;
+      white-space: pre-wrap;
+      line-height: 1.6;
+    }
+
+    /* ==========================================================================
+       8. SECTION: EASING CURVE VISUALIZER & PHYSICS TOKENS
+       ========================================================================== */
+    .curve-visualizer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .curve-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: border-color var(--dur-fast) ease;
+    }
+
+    .curve-card:hover {
+      border-color: var(--border-focus);
+    }
+
+    .curve-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .curve-title {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .curve-badge {
+      font-family: var(--font-mono);
+      font-size: var(--text-micro);
+      color: var(--text-muted);
+    }
+
+    .curve-graph-wrap {
+      height: 120px;
+      background: var(--bg-dark);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      position: relative;
+      overflow: hidden;
+      padding: 10px;
+    }
+
+    .curve-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .curve-track {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-full);
+      position: relative;
+      margin-top: 0.5rem;
+      overflow: hidden;
+    }
+
+    .curve-puck {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 24px;
+      height: 8px;
+      background: var(--accent-gradient);
+      border-radius: var(--radius-full);
+    }
+
+    .curve-puck.puck-spring {
+      animation: trackAnimateSpring 2s var(--ease-spring) infinite;
+    }
+    .curve-puck.puck-elastic {
+      animation: trackAnimateElastic 2s var(--ease-elastic) infinite;
+    }
+    .curve-puck.puck-smooth {
+      animation: trackAnimateSmooth 2s var(--ease-smooth) infinite;
+    }
+    .curve-puck.puck-expo {
+      animation: trackAnimateExpo 2s var(--ease-out-expo) infinite;
+    }
+
+    .curve-token-code {
+      font-family: var(--font-mono);
+      font-size: var(--text-micro);
+      color: var(--accent-emerald);
+      background: rgba(0, 0, 0, 0.3);
+      padding: 6px 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      word-break: break-all;
+    }
+
+    /* ==========================================================================
+       9. SECTION: SCROLL REVEAL TIMELINE & CHOREOGRAPHY
+       ========================================================================== */
+    .timeline-wrap {
+      position: relative;
+      max-width: 860px;
+      margin: 0 auto;
+      padding-left: 2.5rem;
+    }
+
+    .timeline-track-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 11px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent-primary) 0%, var(--accent-cyan) 50%, var(--border-subtle) 100%);
+    }
+
+    .timeline-node {
+      position: relative;
+      margin-bottom: 3rem;
+      opacity: 0;
+      transform: translateX(-30px);
+      transition: all var(--dur-slow) var(--ease-smooth);
+    }
+
+    .timeline-node.scroll-revealed {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .node-pip {
+      position: absolute;
+      left: -2.5rem;
+      top: 6px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--bg-surface);
+      border: 2px solid var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+    }
+
+    .node-pip-inner {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+    }
+
+    .node-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-ambient);
+    }
+
+    .node-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--font-mono);
+      font-size: var(--text-micro);
+      color: var(--accent-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .node-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .node-text {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* ==========================================================================
+       10. TOAST NOTIFICATION SYSTEM
+       ========================================================================== */
+    .toast-container {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      pointer-events: none;
+    }
+
+    .toast-item {
+      pointer-events: auto;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-focus);
+      color: #ffffff;
+      padding: 0.85rem 1.4rem;
+      border-radius: var(--radius-full);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+      font-size: var(--text-small);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transform: translateY(20px) scale(0.9);
+      opacity: 0;
+      animation: toastIn var(--dur-normal) var(--ease-spring) forwards;
+    }
+
+    .toast-item.exit {
+      animation: toastOut var(--dur-fast) var(--ease-smooth) forwards;
+    }
+
+    /* ==========================================================================
+       11. FOOTER
+       ========================================================================== */
+    .site-footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 4rem 0 3rem 0;
+      background: var(--bg-dark);
+      position: relative;
+      z-index: 10;
+    }
+
+    .footer-grid {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-left {
+      max-width: 400px;
+    }
+
+    .footer-brand {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .footer-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .footer-shortcuts {
+      display: flex;
+      gap: 1.5rem;
+      font-family: var(--font-mono);
+      font-size: var(--text-micro);
+      color: var(--text-muted);
+    }
+
+    .kbd {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-subtle);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: var(--text-main);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-faint);
+      font-size: var(--text-micro);
+    }
+
+    /* ==========================================================================
+       12. ANIMATION KEYFRAMES DEFINITIONS
+       ========================================================================== */
+    @keyframes heroEntrance {
+      0% {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes wordReveal {
+      0% {
+        opacity: 0;
+        transform: translateY(115%) rotate(4deg);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+      }
+    }
+
+    @keyframes pulseGlow {
+      0% {
+        box-shadow: 0 0 10px var(--accent-glow);
+      }
+      100% {
+        box-shadow: 0 0 25px rgba(56, 189, 248, 0.8);
+      }
+    }
+
+    @keyframes rippleEffect {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+
+    @keyframes mouseScroll {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+      50% {
+        opacity: 0.3;
+        transform: translate(-50%, 9px);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, 14px);
+      }
+    }
+
+    @keyframes springBounceTest {
+      0% { transform: scale(0.4) rotate(-10deg); opacity: 0; }
+      50% { transform: scale(1.15) rotate(4deg); opacity: 1; }
+      75% { transform: scale(0.95) rotate(-2deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+
+    @keyframes morphRotate {
+      0% {
+        transform: rotate(0deg) scale(1);
+      }
+      50% {
+        transform: rotate(180deg) scale(1.08);
+      }
+      100% {
+        transform: rotate(360deg) scale(1);
+      }
+    }
+
+    @keyframes radarPulse {
+      0% {
+        transform: scale(0.2);
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(1.8);
+        opacity: 0;
+      }
+    }
+
+    @keyframes trackAnimateSpring {
+      0% { left: 0%; }
+      50% { left: calc(100% - 24px); }
+      100% { left: 0%; }
+    }
+
+    @keyframes trackAnimateElastic {
+      0% { left: 0%; }
+      50% { left: calc(100% - 24px); }
+      100% { left: 0%; }
+    }
+
+    @keyframes trackAnimateSmooth {
+      0% { left: 0%; }
+      50% { left: calc(100% - 24px); }
+      100% { left: 0%; }
+    }
+
+    @keyframes trackAnimateExpo {
+      0% { left: 0%; }
+      50% { left: calc(100% - 24px); }
+      100% { left: 0%; }
+    }
+
+    @keyframes toastIn {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes toastOut {
+      to {
+        opacity: 0;
+        transform: translateY(20px) scale(0.9);
+      }
+    }
+
+    /* ==========================================================================
+       13. RESPONSIVE MEDIA QUERIES
+       ========================================================================== */
+    @media (max-width: 1024px) {
+      .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .curve-visualizer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .site-nav {
+        border-radius: var(--radius-md);
+        padding: 0.6rem 1rem;
+      }
+      .nav-links {
+        display: none;
+      }
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+      .curve-visualizer-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-title {
+        font-size: clamp(2.2rem, 8vw, 3.2rem);
+      }
+      .hero-section {
+        padding-top: 7rem;
+      }
+      .sandbox-container {
+        padding: 1.25rem;
+      }
+      .telemetry-hud {
+        display: none;
+      }
+      .footer-grid {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+
+    /* ---- Portfolio additions (layout-compatible with the template) ---- */
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: -4rem;
+      z-index: 200;
+      background: var(--accent-primary);
+      color: #fff;
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius-sm);
+    }
+    .skip-link:focus {
+      top: 1rem;
+    }
+
+    .brand-icon .brand-initials {
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .nav-menu-toggle {
+      display: none;
+      width: 40px;
+      height: 40px;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+    }
+    .nav-menu-toggle svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .cards-grid-two {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .service-list {
+      list-style: none;
+      margin: 0.35rem 0 0;
+      padding: 0;
+    }
+    .service-list li {
+      position: relative;
+      padding: 0.45rem 0 0.45rem 1rem;
+      border-top: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-size: var(--text-small);
+      line-height: 1.45;
+    }
+    .service-list li:first-child {
+      border-top: 0;
+    }
+    .service-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.9rem;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1.1rem;
+      font-size: var(--text-small);
+      font-weight: 600;
+      color: var(--accent-cyan);
+      transition: color var(--dur-fast) ease, gap var(--dur-fast) var(--ease-smooth);
+    }
+    .card-link:hover {
+      color: var(--accent-emerald);
+      gap: 0.6rem;
+    }
+    .card-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+    .contact-grid .tilt-card {
+      min-height: 0;
+    }
+    .contact-label {
+      font-family: var(--font-mono);
+      font-size: var(--text-micro);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 0.45rem;
+    }
+    .contact-grid a {
+      color: var(--text-main);
+      font-weight: 600;
+      word-break: break-word;
+    }
+    .contact-grid a:hover {
+      color: var(--accent-cyan);
+    }
+
+    .about-copy {
+      max-width: 46rem;
+      margin: 0 auto 2.5rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: var(--text-body);
+    }
+    .about-copy p + p {
+      margin-top: 0.9rem;
+    }
+
+    @media (max-width: 1024px) {
+      .cards-grid-two,
+      .contact-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu-toggle {
+        display: flex;
+      }
+      .speed-controller {
+        display: none;
+      }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: calc(100% + 0.65rem);
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 0.5rem;
+        background: var(--bg-glass);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-ambient);
+      }
+      .site-nav.is-open .nav-links {
+        display: flex;
+      }
+      .nav-links .nav-link {
+        padding: 0.7rem 0.85rem;
+        display: block;
+      }
+      .cards-grid-two,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+  </style>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
-  <header class="site-header">
-    <div class="wrap nav">
-      <a class="brand" href="#top">
-        <svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true">
-          <rect width="64" height="64" rx="12" fill="#125e4e"/>
-          <text x="32" y="44" text-anchor="middle" font-family="Georgia, 'Palatino Linotype', serif" font-size="28" font-weight="700" fill="#fffaf2">LB</text>
-        </svg>
-        <span class="brand-name">Lawrance Babu Gain</span>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <canvas id="ambient-canvas"></canvas>
+
+  <svg width="0" height="0" style="position: absolute;" aria-hidden="true">
+    <defs>
+      <linearGradient id="cyan-purple-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#38bdf8" />
+        <stop offset="50%" stop-color="#5b61f4" />
+        <stop offset="100%" stop-color="#34d399" />
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <header>
+    <nav class="site-nav" aria-label="Main Navigation">
+      <a class="nav-brand" href="#hero">
+        <div class="brand-icon"><span class="brand-initials">LB</span></div>
+        <span>Lawrance</span>
       </a>
-      <nav aria-label="Primary">
-        <ul class="nav-links">
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#plugins">Plugins</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><a class="btn" href="mailto:lawrance1020@gmail.com?subject=Project%20enquiry">Hire me</a></li>
-        </ul>
-      </nav>
-    </div>
+
+      <ul class="nav-links">
+        <li><a href="#hero" class="nav-link active">Overview</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#services" class="nav-link">Services</a></li>
+        <li><a href="#plugins" class="nav-link">Plugins</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <div class="speed-controller" title="Adjust motion speed">
+          <button class="speed-btn" data-speed="0.5" type="button">0.5x</button>
+          <button class="speed-btn active" data-speed="1.0" type="button">1.0x</button>
+          <button class="speed-btn" data-speed="2.0" type="button">2.0x</button>
+        </div>
+
+        <button id="toggle-reduced-motion" class="motion-toggle-btn" type="button" title="Toggle accessibility reduced motion">
+          <span class="status-dot" id="motion-dot"></span>
+          <span id="motion-btn-text">Motion Active</span>
+        </button>
+
+        <button class="nav-menu-toggle" id="nav-menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16"/>
+          </svg>
+        </button>
+      </div>
+    </nav>
   </header>
 
   <main id="main">
-    <section class="hero" id="top">
-      <div class="wrap">
-        <p class="eyebrow">Available for freelance and contract work</p>
-        <h1>Lawrance Babu Gain</h1>
-        <p class="lede">Senior WordPress &amp; Laravel Developer</p>
-        <p class="meta">Khulna, Bangladesh · Works US, EU and Asia hours</p>
-        <div class="hero-actions">
-          <a class="btn" href="mailto:lawrance1020@gmail.com?subject=Project%20enquiry">Hire me</a>
-          <a class="btn btn-ghost" href="#services">View services</a>
+    <section class="hero-section" id="hero">
+      <div class="container">
+
+        <div class="hero-eyebrow">
+          <span>// SENIOR PHP DEVELOPER</span>
+          <span>•</span>
+          <span>KHULNA, BANGLADESH</span>
         </div>
+
+        <h1 class="hero-title" aria-label="Lawrance Babu Gain">
+          <span class="reveal-line">
+            <span class="reveal-word" style="animation-delay: 0.15s;">Lawrance</span>
+            <span class="reveal-word" style="animation-delay: 0.25s;">Babu</span>
+          </span>
+          <span class="reveal-line">
+            <span class="reveal-word gradient-text" style="animation-delay: 0.4s;">Gain</span>
+          </span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Senior WordPress &amp; Laravel Developer. I work US, EU and Asia hours, and I am available for freelance and contract work.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="mailto:lawrance1020@gmail.com?subject=Project%20enquiry" class="btn btn-primary">
+            <span>Hire me</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+
+          <button class="btn btn-secondary" id="copy-email-btn" type="button">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+            <span>Copy email</span>
+          </button>
+        </div>
+
+        <div class="telemetry-hud" aria-label="Key facts">
+          <div class="telemetry-item">
+            <span>PHP:</span>
+            <span class="telemetry-value">15+ years</span>
+          </div>
+          <div class="telemetry-item">
+            <span>CAREER:</span>
+            <span class="telemetry-value">Since 2007</span>
+          </div>
+          <div class="telemetry-item">
+            <span>PLUGINS:</span>
+            <span class="telemetry-value">3 open-source</span>
+          </div>
+        </div>
+
+        <a href="#about" class="scroll-down-indicator" aria-label="Scroll down to about">
+          <div class="mouse-icon">
+            <div class="mouse-wheel"></div>
+          </div>
+          <span>ABOUT</span>
+        </a>
+
       </div>
     </section>
 
-    <hr class="rule wrap">
+    <section class="section" id="about">
+      <div class="container">
 
-    <section id="about">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>About</h2>
+        <div class="section-header">
+          <span class="section-tag">// ABOUT</span>
+          <h2 class="section-title">Senior PHP, WordPress &amp; Laravel</h2>
         </div>
-        <div class="prose">
+
+        <div class="about-copy">
           <p>I am a senior PHP developer with more than 15 years of experience building WordPress and Laravel solutions. I have worked in technology since 2007.</p>
           <p>I design and build custom WordPress sites, plugins and WooCommerce stores, and I also build Laravel web applications, including CRMs, SaaS platforms, APIs and payments. I work with clients in US, EU or Asia hours and keep communication clear from start to finish.</p>
         </div>
+
+        <div class="cards-grid">
+          <article class="tilt-card" data-tilt>
+            <div class="card-spotlight"></div>
+            <div class="card-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+                <path d="M4 19h16"/>
+                <path d="M7 19V7l5-3 5 3v12"/>
+                <path d="M9 19v-5h6v5"/>
+              </svg>
+            </div>
+            <h3 class="card-title">15+ years of PHP</h3>
+            <p class="card-text">
+              More than 15 years of professional PHP work, focused on WordPress and Laravel.
+            </p>
+            <div class="card-token-badge"><span>15+ years PHP</span></div>
+          </article>
+
+          <article class="tilt-card" data-tilt>
+            <div class="card-spotlight"></div>
+            <div class="card-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+                <rect x="3" y="5" width="18" height="16" rx="2"/>
+                <path d="M3 10h18M8 3v4M16 3v4"/>
+              </svg>
+            </div>
+            <h3 class="card-title">In technology since 2007</h3>
+            <p class="card-text">
+              I have been working in technology since 2007, and I still build and ship software every week.
+            </p>
+            <div class="card-token-badge"><span>Since 2007</span></div>
+          </article>
+
+          <article class="tilt-card" data-tilt>
+            <div class="card-spotlight"></div>
+            <div class="card-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M12 3a9 9 0 0 1 0 18M3 12h18"/>
+                <path d="M12 3c2.5 3 4 6 4 9s-1.5 6-4 9M12 3c-2.5 3-4 6-4 9s1.5 6 4 9"/>
+              </svg>
+            </div>
+            <h3 class="card-title">US, EU and Asia hours</h3>
+            <p class="card-text">
+              I work with clients across time zones and can overlap with US, EU or Asia hours.
+            </p>
+            <div class="card-token-badge"><span>US · EU · Asia</span></div>
+          </article>
+        </div>
+
+        <div class="timeline-track" style="margin-top: 4rem;">
+          <div class="timeline-node" data-scroll-reveal>
+            <div class="node-pip"><div class="node-pip-inner"></div></div>
+            <div class="node-card">
+              <div class="node-meta">
+                <span>2007</span>
+                <span>•</span>
+                <span>CAREER START</span>
+              </div>
+              <h3 class="node-title">Started working in technology</h3>
+              <p class="node-text">
+                My career in technology began in 2007.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-node" data-scroll-reveal>
+            <div class="node-pip"><div class="node-pip-inner"></div></div>
+            <div class="node-card">
+              <div class="node-meta">
+                <span>15+ YEARS</span>
+                <span>•</span>
+                <span>PHP</span>
+              </div>
+              <h3 class="node-title">WordPress and Laravel</h3>
+              <p class="node-text">
+                More than 15 years of PHP work building WordPress sites and plugins, and Laravel web applications.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-node" data-scroll-reveal>
+            <div class="node-pip"><div class="node-pip-inner"></div></div>
+            <div class="node-card">
+              <div class="node-meta">
+                <span>TODAY</span>
+                <span>•</span>
+                <span>FREELANCE &amp; CONTRACT</span>
+              </div>
+              <h3 class="node-title">Available for clients worldwide</h3>
+              <p class="node-text">
+                I take on freelance and contract work and can work US, EU or Asia hours.
+              </p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
-    <section id="services">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>Services</h2>
+    <section class="section" id="services">
+      <div class="container">
+
+        <div class="section-header">
+          <span class="section-tag">// SERVICES</span>
+          <h2 class="section-title">What I build</h2>
+          <p class="section-desc">
+            WordPress sites, plugins and stores, and custom Laravel applications.
+          </p>
         </div>
-        <div class="service-grid">
-          <article class="card">
-            <h3>WordPress</h3>
-            <ul>
+
+        <div class="cards-grid cards-grid-two">
+          <article class="tilt-card" data-tilt>
+            <div class="card-spotlight"></div>
+            <div class="card-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+                <path d="M4 7h16v12H4z"/>
+                <path d="M8 7V5h8v2"/>
+                <path d="M8 12h8M8 15h5"/>
+              </svg>
+            </div>
+            <h3 class="card-title">WordPress</h3>
+            <ul class="service-list">
               <li>Custom themes and plugins</li>
               <li>WooCommerce stores</li>
               <li>Elementor and Elementor Pro</li>
@@ -95,9 +1914,18 @@
               <li>SEO setup with Rank Math, GA4 and Search Console</li>
             </ul>
           </article>
-          <article class="card">
-            <h3>Laravel</h3>
-            <ul>
+
+          <article class="tilt-card" data-tilt>
+            <div class="card-spotlight"></div>
+            <div class="card-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+                <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                <rect x="4" y="7" width="16" height="14" rx="2"/>
+                <path d="M9 13h6"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Laravel</h3>
+            <ul class="service-list">
               <li>Custom web apps on Laravel 11</li>
               <li>CRM and SaaS platforms</li>
               <li>Stripe subscriptions</li>
@@ -106,62 +1934,478 @@
             </ul>
           </article>
         </div>
+
       </div>
     </section>
 
-    <section id="plugins">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>Open-source WordPress plugins</h2>
+    <section class="section" id="plugins">
+      <div class="container">
+
+        <div class="section-header">
+          <span class="section-tag">// OPEN SOURCE</span>
+          <h2 class="section-title">WordPress plugins</h2>
+          <p class="section-desc">
+            Public plugins I wrote and published on GitHub.
+          </p>
         </div>
-        <div class="plugin-grid">
-          <article class="card plugin">
-            <h3>Auth Gate Popup</h3>
-            <p>A WordPress plugin that gates the entire site behind a non-dismissible login / registration popup and requires login before WooCommerce purchases.</p>
-            <a class="plugin-link" href="https://github.com/lawrancebabu/auth-gate-popup">View on GitHub</a>
+
+        <div class="cards-grid">
+          <article class="tilt-card" data-tilt>
+            <div class="card-spotlight"></div>
+            <div class="card-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+                <rect x="5" y="11" width="14" height="10" rx="2"/>
+                <path d="M8 11V8a4 4 0 0 1 8 0v3"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Auth Gate Popup</h3>
+            <p class="card-text">
+              A WordPress plugin that gates the entire site behind a non-dismissible login / registration popup and requires login before WooCommerce purchases.
+            </p>
+            <a class="card-link" href="https://github.com/lawrancebabu/auth-gate-popup" rel="noopener noreferrer">
+              <span>View on GitHub</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
           </article>
-          <article class="card plugin">
-            <h3>Custom Reset Password</h3>
-            <p>A WordPress plugin that replaces the default wp-login.php password reset screen with a styled, on-brand front-end page, complete with a strength meter and secure password suggestions.</p>
-            <a class="plugin-link" href="https://github.com/lawrancebabu/custom-reset-password">View on GitHub</a>
+
+          <article class="tilt-card" data-tilt>
+            <div class="card-spotlight"></div>
+            <div class="card-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+                <rect x="3" y="5" width="18" height="14" rx="2"/>
+                <path d="M7 15h3M12 11v4"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Custom Reset Password</h3>
+            <p class="card-text">
+              A WordPress plugin that replaces the default wp-login.php password reset screen with a styled, on-brand front-end page, complete with a strength meter and secure password suggestions.
+            </p>
+            <a class="card-link" href="https://github.com/lawrancebabu/custom-reset-password" rel="noopener noreferrer">
+              <span>View on GitHub</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
           </article>
-          <article class="card plugin">
-            <h3>Smart Banner</h3>
-            <p>A WordPress plugin for stackable, site-wide announcement banners with scheduling, live countdowns, drag-to-reorder and remembered dismissals.</p>
-            <a class="plugin-link" href="https://github.com/lawrancebabu/smart-banner">View on GitHub</a>
+
+          <article class="tilt-card" data-tilt>
+            <div class="card-spotlight"></div>
+            <div class="card-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M4 7h16v4H4z"/>
+                <path d="M4 11v8h16v-8"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Smart Banner</h3>
+            <p class="card-text">
+              A WordPress plugin for stackable, site-wide announcement banners with scheduling, live countdowns, drag-to-reorder and remembered dismissals.
+            </p>
+            <a class="card-link" href="https://github.com/lawrancebabu/smart-banner" rel="noopener noreferrer">
+              <span>View on GitHub</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
           </article>
         </div>
+
       </div>
     </section>
 
-    <section id="contact">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>Contact</h2>
+    <section class="section" id="projects">
+      <div class="container">
+
+        <div class="section-header">
+          <span class="section-tag">// LARAVEL</span>
+          <h2 class="section-title">Laravel projects</h2>
+          <p class="section-desc">
+            Selected Laravel applications I have built. Where a client is under NDA, the project is listed without a name or URL.
+          </p>
         </div>
-        <ul class="contact-list">
-          <li>
-            <span>Email</span>
+
+        <div class="cards-grid">
+          <article class="tilt-card" data-tilt>
+            <div class="card-spotlight"></div>
+            <div class="card-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+                <path d="M4 19V6h16v13"/>
+                <path d="M4 15h16"/>
+                <path d="M8 15v4M12 15v4M16 15v4"/>
+                <path d="M8 6V4h8v2"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Accounting / ERP system</h3>
+            <p class="card-text">
+              A Laravel accounting and billing system (RightSight). The live demo opens to a sign-in screen.
+            </p>
+            <a class="card-link" href="https://rightsightedu.com/rs_accounting/" rel="noopener noreferrer">
+              <span>View live demo</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </article>
+
+          <article class="tilt-card" data-tilt>
+            <div class="card-spotlight"></div>
+            <div class="card-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+                <circle cx="9" cy="8" r="3"/>
+                <path d="M4 19a5 5 0 0 1 10 0"/>
+                <circle cx="17" cy="9" r="2"/>
+                <path d="M16 19a4 4 0 0 1 5-3.8"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Multi-account CRM / SaaS platform</h3>
+            <p class="card-text">
+              A multi-account CRM and SaaS platform built with Laravel, PostgreSQL, MySQL and Redis. Freelance project since 2014.
+            </p>
+            <div class="card-token-badge"><span>Private client project (NDA)</span></div>
+          </article>
+
+          <article class="tilt-card" data-tilt>
+            <div class="card-spotlight"></div>
+            <div class="card-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+                <path d="M3 16h13l5-5h-6l-2 2H8"/>
+                <circle cx="7" cy="19" r="2"/>
+                <circle cx="17" cy="19" r="2"/>
+                <path d="M3 16V7h8"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Logistics dispatch SaaS</h3>
+            <p class="card-text">
+              A logistics dispatch SaaS with Stripe subscriptions, built with Laravel and PostgreSQL, since 2023.
+            </p>
+            <div class="card-token-badge"><span>Private client project (NDA)</span></div>
+          </article>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+
+        <div class="section-header">
+          <span class="section-tag">// CONTACT</span>
+          <h2 class="section-title">Let’s work together</h2>
+          <p class="section-desc">
+            Email is the best way to reach me. You can also find me on LinkedIn and GitHub.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <article class="tilt-card" data-tilt>
+            <div class="card-spotlight"></div>
+            <div class="contact-label">Email</div>
             <a href="mailto:lawrance1020@gmail.com">lawrance1020@gmail.com</a>
-          </li>
-          <li>
-            <span>LinkedIn</span>
-            <a href="https://www.linkedin.com/in/lawrance-babu/">linkedin.com/in/lawrance-babu</a>
-          </li>
-          <li>
-            <span>GitHub</span>
-            <a href="https://github.com/lawrancebabu">github.com/lawrancebabu</a>
-          </li>
-        </ul>
+          </article>
+          <article class="tilt-card" data-tilt>
+            <div class="card-spotlight"></div>
+            <div class="contact-label">LinkedIn</div>
+            <a href="https://www.linkedin.com/in/lawrance-babu/" rel="noopener noreferrer">linkedin.com/in/lawrance-babu</a>
+          </article>
+          <article class="tilt-card" data-tilt>
+            <div class="card-spotlight"></div>
+            <div class="contact-label">GitHub</div>
+            <a href="https://github.com/lawrancebabu" rel="noopener noreferrer">github.com/lawrancebabu</a>
+          </article>
+        </div>
+
+        <div class="hero-cta-group" style="margin-top: 2.25rem; justify-content: center;">
+          <a href="mailto:lawrance1020@gmail.com?subject=Project%20enquiry" class="btn btn-primary">
+            <span>Hire me</span>
+          </a>
+        </div>
+
       </div>
     </section>
   </main>
 
-  <footer>
-    <div class="wrap">
-      <p>© 2026 Lawrance Babu Gain</p>
-      <p>Khulna, Bangladesh</p>
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-left">
+          <div class="footer-brand">
+            <div class="brand-icon" style="width: 22px; height: 22px;">
+              <span class="brand-initials" style="font-size: 0.5rem;">LB</span>
+            </div>
+            <span>Lawrance Babu Gain</span>
+          </div>
+          <p class="footer-desc">
+            Senior WordPress &amp; Laravel developer in Khulna, Bangladesh. Available for freelance and contract work.
+          </p>
+        </div>
+
+        <div class="footer-shortcuts">
+          <div><span class="kbd">Space</span> Replay Hero</div>
+          <div><span class="kbd">M</span> Toggle Motion</div>
+          <div><span class="kbd">1-3</span> Speed Scale</div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>Khulna, Bangladesh</span>
+        <span>© 2026 Lawrance Babu Gain</span>
+      </div>
     </div>
   </footer>
+
+  <script>
+    (function() {
+      'use strict';
+
+      const state = {
+        speedScale: 1.0,
+        reducedMotion: false,
+        pointer: { x: window.innerWidth / 2, y: window.innerHeight / 2, targetX: window.innerWidth / 2, targetY: window.innerHeight / 2 }
+      };
+
+      const canvas = document.getElementById('ambient-canvas');
+      const ctx = canvas ? canvas.getContext('2d') : null;
+      let particles = [];
+
+      function resizeCanvas() {
+        if (!canvas) return;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        initParticles();
+      }
+
+      function initParticles() {
+        if (!canvas) return;
+        particles = [];
+        const count = Math.min(Math.floor((canvas.width * canvas.height) / 16000), 75);
+        for (let i = 0; i < count; i++) {
+          particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 0.4,
+            vy: (Math.random() - 0.5) * 0.4,
+            radius: Math.random() * 2 + 1,
+            color: Math.random() > 0.5 ? 'rgba(91, 97, 244, ' : 'rgba(56, 189, 248, '
+          });
+        }
+      }
+
+      function renderCanvas() {
+        if (!ctx || !canvas) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (!state.reducedMotion) {
+          state.pointer.x += (state.pointer.targetX - state.pointer.x) * 0.08;
+          state.pointer.y += (state.pointer.targetY - state.pointer.y) * 0.08;
+
+          for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+            p.x += p.vx * state.speedScale;
+            p.y += p.vy * state.speedScale;
+
+            if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+            const dx = state.pointer.x - p.x;
+            const dy = state.pointer.y - p.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 140) {
+              const force = (140 - dist) / 140;
+              p.x -= (dx / dist) * force * 3;
+              p.y -= (dy / dist) * force * 3;
+            }
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = p.color + '0.45)';
+            ctx.fill();
+
+            for (let j = i + 1; j < particles.length; j++) {
+              const p2 = particles[j];
+              const cdx = p.x - p2.x;
+              const cdy = p.y - p2.y;
+              const cdist = Math.sqrt(cdx * cdx + cdy * cdy);
+              if (cdist < 110) {
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.strokeStyle = 'rgba(91, 97, 244, ' + (0.12 * (1 - cdist / 110)) + ')';
+                ctx.stroke();
+              }
+            }
+          }
+        }
+
+        requestAnimationFrame(renderCanvas);
+      }
+
+      window.addEventListener('resize', resizeCanvas);
+      window.addEventListener('mousemove', function(e) {
+        state.pointer.targetX = e.clientX;
+        state.pointer.targetY = e.clientY;
+      });
+
+      resizeCanvas();
+      renderCanvas();
+
+      const tiltCards = document.querySelectorAll('[data-tilt]');
+      tiltCards.forEach(card => {
+        card.addEventListener('mousemove', e => {
+          if (state.reducedMotion) return;
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = ((y - centerY) / centerY) * -10;
+          const rotateY = ((x - centerX) / centerX) * 10;
+
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+        });
+
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        });
+      });
+
+      const scrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+          }
+        });
+      }, { threshold: 0.15 });
+      document.querySelectorAll('[data-scroll-reveal]').forEach(el => scrollObserver.observe(el));
+
+      const speedButtons = document.querySelectorAll('.speed-btn');
+      speedButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const speed = parseFloat(btn.dataset.speed);
+          state.speedScale = speed;
+          document.documentElement.style.setProperty('--motion-speed-scale', String(speed));
+          speedButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          showToast(`Motion speed set to ${speed}x`);
+        });
+      });
+
+      const motionBtn = document.getElementById('toggle-reduced-motion');
+      const motionDot = document.getElementById('motion-dot');
+      const motionText = document.getElementById('motion-btn-text');
+
+      function setReducedMotion(enable) {
+        state.reducedMotion = enable;
+        document.body.classList.toggle('reduced-motion-active', enable);
+        if (motionText) motionText.textContent = enable ? 'Motion Reduced' : 'Motion Active';
+        if (motionDot) motionDot.style.background = enable ? 'var(--accent-amber)' : 'var(--accent-emerald)';
+        showToast(enable ? 'Reduced motion on' : 'Motion active');
+      }
+
+      if (motionBtn) {
+        motionBtn.addEventListener('click', () => setReducedMotion(!state.reducedMotion));
+      }
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        setReducedMotion(true);
+      }
+
+      document.querySelectorAll('.btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          const rect = this.getBoundingClientRect();
+          const ripple = document.createElement('span');
+          ripple.classList.add('ripple-spark');
+          const diameter = Math.max(rect.width, rect.height);
+          ripple.style.width = ripple.style.height = `${diameter}px`;
+          ripple.style.left = `${e.clientX - rect.left - diameter / 2}px`;
+          ripple.style.top = `${e.clientY - rect.top - diameter / 2}px`;
+          this.appendChild(ripple);
+          setTimeout(() => ripple.remove(), 600);
+        });
+      });
+
+      const toastContainer = document.getElementById('toast-container');
+      function showToast(message) {
+        if (!toastContainer) return;
+        const toast = document.createElement('div');
+        toast.className = 'toast-item';
+        toast.innerHTML = `
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <span></span>
+        `;
+        toast.querySelector('span').textContent = message;
+        toastContainer.appendChild(toast);
+        setTimeout(() => {
+          toast.classList.add('exit');
+          setTimeout(() => toast.remove(), 300);
+        }, 2800);
+      }
+
+      const copyEmailBtn = document.getElementById('copy-email-btn');
+      if (copyEmailBtn) {
+        copyEmailBtn.addEventListener('click', () => {
+          navigator.clipboard.writeText('lawrance1020@gmail.com').then(() => {
+            showToast('Email copied');
+          }).catch(() => {
+            showToast('Email: lawrance1020@gmail.com');
+          });
+        });
+      }
+
+      const nav = document.querySelector('.site-nav');
+      const menuBtn = document.getElementById('nav-menu-toggle');
+      if (menuBtn && nav) {
+        menuBtn.addEventListener('click', () => {
+          const open = nav.classList.toggle('is-open');
+          menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+          menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        });
+        nav.querySelectorAll('.nav-link').forEach(link => {
+          link.addEventListener('click', () => {
+            nav.classList.remove('is-open');
+            menuBtn.setAttribute('aria-expanded', 'false');
+            menuBtn.setAttribute('aria-label', 'Open menu');
+          });
+        });
+      }
+
+      const navLinks = document.querySelectorAll('.nav-link');
+      const sections = ['hero','about','services','plugins','projects','contact']
+        .map(id => document.getElementById(id))
+        .filter(Boolean);
+      const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          const id = entry.target.id;
+          navLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+          });
+        });
+      }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+      sections.forEach(sec => sectionObserver.observe(sec));
+
+      window.addEventListener('keydown', (e) => {
+        if (e.code === 'Space' && e.target === document.body) {
+          e.preventDefault();
+          const words = document.querySelectorAll('.reveal-word');
+          words.forEach(w => {
+            w.style.animation = 'none';
+            void w.offsetWidth;
+            w.style.animation = '';
+          });
+          showToast('Replayed hero typography');
+        }
+
+        if (e.key.toLowerCase() === 'm' && !['INPUT', 'TEXTAREA'].includes(e.target.tagName)) {
+          setReducedMotion(!state.reducedMotion);
+        }
+
+        if (['1', '2', '3'].includes(e.key) && !['INPUT', 'TEXTAREA'].includes(e.target.tagName)) {
+          const speedMap = { '1': 0.5, '2': 1.0, '3': 2.0 };
+          const targetSpeed = speedMap[e.key];
+          const btn = document.querySelector(`.speed-btn[data-speed="${targetSpeed.toFixed(1)}"]`);
+          if (btn) btn.click();
+        }
+      });
+
+    })();
+  </script>
 </body>
 </html>

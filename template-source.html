@@ -1,0 +1,2485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Kinetix - Responsive Animation Template & Modern Motion System">
+  <title>KINETIX — Responsive Animation Template & Motion System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================================================================
+       1. CSS CUSTOM PROPERTIES & MOTION DESIGN TOKENS
+       ========================================================================== */
+    :root {
+      /* Color Palette */
+      --bg-dark: #07090e;
+      --bg-surface: #0f131c;
+      --bg-surface-elevated: #161c29;
+      --bg-card: rgba(18, 24, 38, 0.7);
+      --bg-glass: rgba(15, 19, 28, 0.65);
+
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-focus: rgba(91, 97, 244, 0.5);
+      --border-highlight: rgba(255, 255, 255, 0.18);
+
+      --text-main: #f4f6fc;
+      --text-muted: #8e9bb3;
+      --text-faint: #525d73;
+
+      --accent-primary: #5b61f4;
+      --accent-glow: rgba(91, 97, 244, 0.4);
+      --accent-cyan: #38bdf8;
+      --accent-emerald: #34d399;
+      --accent-amber: #fbbf24;
+      --accent-gradient: linear-gradient(135deg, #5b61f4 0%, #38bdf8 50%, #34d399 100%);
+      --accent-gradient-subtle: linear-gradient(135deg, rgba(91, 97, 244, 0.15) 0%, rgba(56, 189, 248, 0.1) 100%);
+
+      /* Typography Scale */
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+      --text-display: clamp(2.5rem, 6.5vw, 5.5rem);
+      --text-h1: clamp(2rem, 4.5vw, 3.5rem);
+      --text-h2: clamp(1.5rem, 3vw, 2.25rem);
+      --text-h3: clamp(1.2rem, 2vw, 1.5rem);
+      --text-body: clamp(0.95rem, 1.2vw, 1.05rem);
+      --text-small: 0.85rem;
+      --text-micro: 0.75rem;
+
+      /* Animation Duration & Easing Tokens */
+      --motion-speed-scale: 1;
+      --dur-instant: calc(120ms * var(--motion-speed-scale));
+      --dur-fast: calc(240ms * var(--motion-speed-scale));
+      --dur-normal: calc(450ms * var(--motion-speed-scale));
+      --dur-slow: calc(750ms * var(--motion-speed-scale));
+      --dur-flow: calc(1200ms * var(--motion-speed-scale));
+
+      /* Easing Physics Curves */
+      --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+      /* Layout */
+      --container-max: 1240px;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 24px;
+      --radius-full: 9999px;
+      --shadow-ambient: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 50px -10px var(--accent-glow);
+    }
+
+    /* Accessibility: Respect Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      :root {
+        --motion-speed-scale: 0.0001 !important;
+        --dur-instant: 0.001ms !important;
+        --dur-fast: 0.001ms !important;
+        --dur-normal: 0.001ms !important;
+        --dur-slow: 0.001ms !important;
+        --dur-flow: 0.001ms !important;
+      }
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* Manual Reduced Motion Class Trigger */
+    body.reduced-motion-active {
+      --motion-speed-scale: 0.0001 !important;
+      --dur-instant: 0.001ms !important;
+      --dur-fast: 0.001ms !important;
+      --dur-normal: 0.001ms !important;
+      --dur-slow: 0.001ms !important;
+      --dur-flow: 0.001ms !important;
+    }
+    body.reduced-motion-active *,
+    body.reduced-motion-active *::before,
+    body.reduced-motion-active *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+
+    /* ==========================================================================
+       2. GLOBAL RESETS & BASE STYLING
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-family: var(--font-sans);
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+      background: radial-gradient(circle at 50% 0%, #151b2c 0%, var(--bg-dark) 70%);
+      background-attachment: fixed;
+    }
+
+    ::selection {
+      background: var(--accent-primary);
+      color: #ffffff;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ==========================================================================
+       3. INTERACTIVE BACKGROUND CANVAS
+       ========================================================================== */
+    #ambient-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.65;
+    }
+
+    /* ==========================================================================
+       4. NAVIGATION & TELEMETRY CONTROLS
+       ========================================================================== */
+    .site-nav {
+      position: fixed;
+      top: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 2rem);
+      max-width: var(--container-max);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1.25rem;
+      background: var(--bg-glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      transition: all var(--dur-normal) var(--ease-smooth);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      font-size: 1.05rem;
+    }
+
+    .brand-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--accent-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 15px var(--accent-glow);
+      animation: pulseGlow 4s ease-in-out infinite alternate;
+    }
+
+    .brand-icon svg {
+      width: 16px;
+      height: 16px;
+      fill: #ffffff;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-size: var(--text-small);
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: color var(--dur-fast) ease;
+      position: relative;
+      padding: 0.25rem 0;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-gradient);
+      transition: width var(--dur-fast) var(--ease-smooth);
+      border-radius: 2px;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--text-main);
+    }
+
+    .nav-link:hover::after, .nav-link.active::after {
+      width: 100%;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    /* Speed Control Pill */
+    .speed-controller {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .speed-btn {
+      padding: 4px 10px;
+      font-size: var(--text-micro);
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      border-radius: var(--radius-full);
+      transition: all var(--dur-fast) ease;
+    }
+
+    .speed-btn:hover {
+      color: var(--text-main);
+    }
+
+    .speed-btn.active {
+      background: var(--accent-primary);
+      color: #ffffff;
+      box-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    .motion-toggle-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: var(--radius-full);
+      font-size: var(--text-micro);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all var(--dur-fast) ease;
+    }
+
+    .motion-toggle-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      border-color: var(--border-highlight);
+    }
+
+    .motion-toggle-btn.active {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-emerald);
+      box-shadow: 0 0 8px var(--accent-emerald);
+    }
+
+    .status-dot.paused {
+      background: #ef4444;
+      box-shadow: 0 0 8px #ef4444;
+    }
+
+    /* Mobile Hamburger Menu */
+    .mobile-menu-btn {
+      display: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      align-items: center;
+      justify-content: center;
+      color: var(--text-main);
+    }
+
+    /* ==========================================================================
+       5. HERO SECTION: KINETIC ORCHESTRATION
+       ========================================================================== */
+    .hero-section {
+      position: relative;
+      min-height: 100vh;
+      padding-top: 8rem;
+      padding-bottom: 5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      z-index: 10;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 6px 16px;
+      background: var(--accent-gradient-subtle);
+      border: 1px solid var(--border-focus);
+      border-radius: var(--radius-full);
+      font-size: var(--text-micro);
+      font-family: var(--font-mono);
+      color: var(--accent-cyan);
+      letter-spacing: 0.05em;
+      margin-bottom: 2rem;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.15);
+      transform: translateY(20px);
+      opacity: 0;
+      animation: heroEntrance 0.8s var(--ease-smooth) 0.1s forwards;
+    }
+
+    .hero-title {
+      font-size: var(--text-display);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+      max-width: 980px;
+      margin: 0 auto 1.75rem auto;
+    }
+
+    /* Split Line Typography Reveal Animation */
+    .reveal-line {
+      display: block;
+      overflow: hidden;
+      padding: 0.1em 0;
+    }
+
+    .reveal-word {
+      display: inline-block;
+      transform: translateY(110%) rotate(4deg);
+      opacity: 0;
+      animation: wordReveal 0.9s var(--ease-smooth) forwards;
+    }
+
+    .reveal-word.gradient-text {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 20px rgba(91, 97, 244, 0.4));
+    }
+
+    .hero-subtitle {
+      font-size: var(--text-body);
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto 2.5rem auto;
+      line-height: 1.7;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: heroEntrance 0.9s var(--ease-smooth) 0.6s forwards;
+    }
+
+    /* Action Buttons with Magnetic Feel */
+    .hero-cta-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      margin-bottom: 3.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: heroEntrance 0.9s var(--ease-smooth) 0.8s forwards;
+    }
+
+    .btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      padding: 0.85rem 1.85rem;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: var(--text-body);
+      transition: transform var(--dur-fast) var(--ease-spring), box-shadow var(--dur-fast) ease, border-color var(--dur-fast) ease;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    .btn-primary {
+      background: var(--accent-gradient);
+      color: #ffffff;
+      box-shadow: 0 10px 25px -5px var(--accent-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 15px 35px -5px rgba(91, 97, 244, 0.6);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+      border: 1px solid var(--border-subtle);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--border-highlight);
+      transform: translateY(-3px);
+    }
+
+    .btn-secondary:active {
+      transform: translateY(0);
+    }
+
+    /* Ripple Effect span */
+    .ripple-spark {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.35);
+      transform: scale(0);
+      animation: rippleEffect 0.6s linear;
+      pointer-events: none;
+    }
+
+    /* Hero Telemetry HUD */
+    .telemetry-hud {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 0.6rem 1.25rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono);
+      font-size: var(--text-micro);
+      color: var(--text-muted);
+      opacity: 0;
+      animation: heroEntrance 0.8s var(--ease-smooth) 1s forwards;
+    }
+
+    .telemetry-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .telemetry-value {
+      color: var(--accent-cyan);
+      font-weight: 600;
+    }
+
+    /* Scroll Indicator Anchor */
+    .scroll-down-indicator {
+      margin-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-faint);
+      font-size: var(--text-micro);
+      font-family: var(--font-mono);
+      transition: color var(--dur-fast) ease;
+    }
+
+    .scroll-down-indicator:hover {
+      color: var(--accent-cyan);
+    }
+
+    .mouse-icon {
+      width: 22px;
+      height: 34px;
+      border: 2px solid currentColor;
+      border-radius: 12px;
+      position: relative;
+    }
+
+    .mouse-wheel {
+      width: 4px;
+      height: 7px;
+      background: currentColor;
+      border-radius: 2px;
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: mouseScroll 1.6s infinite ease-in-out;
+    }
+
+    /* ==========================================================================
+       6. SECTION: MOTION PILLARS & REACTIVE 3D CARDS
+       ========================================================================== */
+    .section {
+      position: relative;
+      padding: 6rem 0;
+      z-index: 10;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 3.5rem auto;
+    }
+
+    .section-tag {
+      font-family: var(--font-mono);
+      font-size: var(--text-micro);
+      color: var(--accent-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+      display: inline-block;
+    }
+
+    .section-title {
+      font-size: var(--text-h1);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      font-size: var(--text-body);
+    }
+
+    /* 3D Tilt Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.75rem;
+      perspective: 1000px;
+    }
+
+    .tilt-card {
+      position: relative;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem 2rem;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: var(--shadow-ambient);
+      transform-style: preserve-3d;
+      transition: transform var(--dur-fast) var(--ease-smooth), border-color var(--dur-fast) ease, box-shadow var(--dur-fast) ease;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .tilt-card:hover {
+      border-color: var(--border-focus);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 30px -10px var(--accent-glow);
+    }
+
+    /* Card Glow Overlay following cursor */
+    .card-spotlight {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle 250px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(91, 97, 244, 0.15), transparent 70%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity var(--dur-normal) ease;
+    }
+
+    .tilt-card:hover .card-spotlight {
+      opacity: 1;
+    }
+
+    .card-icon-wrap {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      transform: translateZ(30px);
+      transition: transform var(--dur-normal) var(--ease-spring);
+    }
+
+    .tilt-card:hover .card-icon-wrap {
+      transform: translateZ(45px) scale(1.1);
+      background: var(--accent-gradient-subtle);
+      border-color: var(--accent-cyan);
+    }
+
+    .card-icon-wrap svg {
+      width: 26px;
+      height: 26px;
+      stroke: var(--accent-cyan);
+    }
+
+    .card-title {
+      font-size: var(--text-h3);
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      transform: translateZ(20px);
+    }
+
+    .card-text {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+      transform: translateZ(15px);
+    }
+
+    .card-token-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: var(--text-micro);
+      color: var(--accent-emerald);
+      background: rgba(52, 211, 153, 0.1);
+      border: 1px solid rgba(52, 211, 153, 0.2);
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      transform: translateZ(10px);
+    }
+
+    /* ==========================================================================
+       7. SECTION: INTERACTIVE MOTION SANDBOX (PRESETS & LIVE PLAYGROUND)
+       ========================================================================== */
+    .sandbox-container {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow: var(--shadow-ambient);
+    }
+
+    .sandbox-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 1.25rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .preset-pills {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .preset-pill {
+      padding: 0.5rem 1.1rem;
+      border-radius: var(--radius-full);
+      font-size: var(--text-small);
+      font-weight: 600;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      transition: all var(--dur-fast) ease;
+    }
+
+    .preset-pill:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .preset-pill.active {
+      color: #ffffff;
+      background: var(--accent-primary);
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 15px var(--accent-glow);
+    }
+
+    .replay-trigger-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1.1rem;
+      border-radius: var(--radius-full);
+      font-size: var(--text-small);
+      font-weight: 600;
+      background: var(--accent-gradient-subtle);
+      border: 1px solid var(--border-focus);
+      color: var(--accent-cyan);
+      transition: all var(--dur-fast) ease;
+    }
+
+    .replay-trigger-btn:hover {
+      background: rgba(56, 189, 248, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .replay-trigger-btn svg {
+      width: 16px;
+      height: 16px;
+      transition: transform var(--dur-fast) var(--ease-spring);
+    }
+
+    .replay-trigger-btn:hover svg {
+      transform: rotate(180deg);
+    }
+
+    /* Sandbox Interactive Stage */
+    .sandbox-stage {
+      min-height: 380px;
+      background: var(--bg-dark);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 2.5rem;
+    }
+
+    .stage-grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 30px 30px;
+      pointer-events: none;
+    }
+
+    /* Sandbox Demo 1: Spring Bounce Box */
+    .demo-spring-box {
+      width: 130px;
+      height: 130px;
+      background: var(--accent-gradient);
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: var(--text-small);
+      box-shadow: 0 10px 30px var(--accent-glow);
+      cursor: grab;
+      user-select: none;
+      transition: transform var(--dur-normal) var(--ease-spring);
+    }
+
+    .demo-spring-box.animating {
+      animation: springBounceTest var(--dur-slow) var(--ease-spring);
+    }
+
+    .demo-spring-box:active {
+      cursor: grabbing;
+      transform: scale(0.92);
+    }
+
+    /* Sandbox Demo 2: Magnetic Follow Element */
+    .magnetic-arena {
+      width: 100%;
+      height: 100%;
+      min-height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .magnetic-target {
+      padding: 1.25rem 2.5rem;
+      background: var(--bg-card);
+      border: 2px solid var(--accent-cyan);
+      border-radius: var(--radius-full);
+      color: #ffffff;
+      font-weight: 700;
+      box-shadow: 0 0 30px rgba(56, 189, 248, 0.3);
+      cursor: pointer;
+      transition: transform 0.15s ease-out, box-shadow 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    /* Sandbox Demo 3: Staggered Cascade Group */
+    .stagger-group {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .stagger-item {
+      width: 100px;
+      height: 130px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      opacity: 0;
+      transform: translateY(40px) scale(0.9);
+      transition: opacity var(--dur-normal) var(--ease-smooth), transform var(--dur-normal) var(--ease-spring);
+    }
+
+    .stagger-item.revealed {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .stagger-number {
+      font-family: var(--font-mono);
+      font-size: var(--text-micro);
+      color: var(--accent-emerald);
+    }
+
+    /* Sandbox Demo 4: Morphing Vector Wave */
+    .morph-svg-container {
+      width: 240px;
+      height: 240px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .morph-shape {
+      width: 100%;
+      height: 100%;
+      fill: none;
+      stroke: url(#cyan-purple-grad);
+      stroke-width: 3;
+      stroke-dasharray: 600;
+      stroke-dashoffset: 0;
+      filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.5));
+      animation: morphRotate 12s linear infinite;
+    }
+
+    /* Sandbox Demo 5: Pulse Radar Waves */
+    .pulse-radar-container {
+      position: relative;
+      width: 160px;
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .radar-core {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      box-shadow: 0 0 25px var(--accent-cyan);
+      z-index: 2;
+    }
+
+    .radar-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 2px solid var(--accent-cyan);
+      opacity: 0;
+      animation: radarPulse 2.8s var(--ease-smooth) infinite;
+    }
+
+    .radar-ring:nth-child(2) {
+      animation-delay: 0.9s;
+    }
+    .radar-ring:nth-child(3) {
+      animation-delay: 1.8s;
+    }
+
+    /* Sandbox Code & Token Drawer */
+    .sandbox-code-drawer {
+      margin-top: 1.5rem;
+      background: var(--bg-dark);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1.25rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .drawer-tabs {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .drawer-tab {
+      font-family: var(--font-mono);
+      font-size: var(--text-micro);
+      color: var(--text-muted);
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      transition: all var(--dur-fast) ease;
+    }
+
+    .drawer-tab.active {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .copy-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: var(--text-micro);
+      color: var(--accent-cyan);
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      transition: all var(--dur-fast) ease;
+    }
+
+    .copy-btn:hover {
+      background: rgba(56, 189, 248, 0.2);
+    }
+
+    .drawer-content {
+      padding: 1.25rem;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .code-block {
+      font-family: var(--font-mono);
+      font-size: var(--text-micro);
+      color: #d1d5db;
+      white-space: pre-wrap;
+      line-height: 1.6;
+    }
+
+    /* ==========================================================================
+       8. SECTION: EASING CURVE VISUALIZER & PHYSICS TOKENS
+       ========================================================================== */
+    .curve-visualizer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .curve-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: border-color var(--dur-fast) ease;
+    }
+
+    .curve-card:hover {
+      border-color: var(--border-focus);
+    }
+
+    .curve-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .curve-title {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .curve-badge {
+      font-family: var(--font-mono);
+      font-size: var(--text-micro);
+      color: var(--text-muted);
+    }
+
+    .curve-graph-wrap {
+      height: 120px;
+      background: var(--bg-dark);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      position: relative;
+      overflow: hidden;
+      padding: 10px;
+    }
+
+    .curve-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .curve-track {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-full);
+      position: relative;
+      margin-top: 0.5rem;
+      overflow: hidden;
+    }
+
+    .curve-puck {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 24px;
+      height: 8px;
+      background: var(--accent-gradient);
+      border-radius: var(--radius-full);
+    }
+
+    .curve-puck.puck-spring {
+      animation: trackAnimateSpring 2s var(--ease-spring) infinite;
+    }
+    .curve-puck.puck-elastic {
+      animation: trackAnimateElastic 2s var(--ease-elastic) infinite;
+    }
+    .curve-puck.puck-smooth {
+      animation: trackAnimateSmooth 2s var(--ease-smooth) infinite;
+    }
+    .curve-puck.puck-expo {
+      animation: trackAnimateExpo 2s var(--ease-out-expo) infinite;
+    }
+
+    .curve-token-code {
+      font-family: var(--font-mono);
+      font-size: var(--text-micro);
+      color: var(--accent-emerald);
+      background: rgba(0, 0, 0, 0.3);
+      padding: 6px 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      word-break: break-all;
+    }
+
+    /* ==========================================================================
+       9. SECTION: SCROLL REVEAL TIMELINE & CHOREOGRAPHY
+       ========================================================================== */
+    .timeline-wrap {
+      position: relative;
+      max-width: 860px;
+      margin: 0 auto;
+      padding-left: 2.5rem;
+    }
+
+    .timeline-track-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 11px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent-primary) 0%, var(--accent-cyan) 50%, var(--border-subtle) 100%);
+    }
+
+    .timeline-node {
+      position: relative;
+      margin-bottom: 3rem;
+      opacity: 0;
+      transform: translateX(-30px);
+      transition: all var(--dur-slow) var(--ease-smooth);
+    }
+
+    .timeline-node.scroll-revealed {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .node-pip {
+      position: absolute;
+      left: -2.5rem;
+      top: 6px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--bg-surface);
+      border: 2px solid var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+    }
+
+    .node-pip-inner {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+    }
+
+    .node-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-ambient);
+    }
+
+    .node-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--font-mono);
+      font-size: var(--text-micro);
+      color: var(--accent-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .node-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .node-text {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* ==========================================================================
+       10. TOAST NOTIFICATION SYSTEM
+       ========================================================================== */
+    .toast-container {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      pointer-events: none;
+    }
+
+    .toast-item {
+      pointer-events: auto;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-focus);
+      color: #ffffff;
+      padding: 0.85rem 1.4rem;
+      border-radius: var(--radius-full);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+      font-size: var(--text-small);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transform: translateY(20px) scale(0.9);
+      opacity: 0;
+      animation: toastIn var(--dur-normal) var(--ease-spring) forwards;
+    }
+
+    .toast-item.exit {
+      animation: toastOut var(--dur-fast) var(--ease-smooth) forwards;
+    }
+
+    /* ==========================================================================
+       11. FOOTER
+       ========================================================================== */
+    .site-footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 4rem 0 3rem 0;
+      background: var(--bg-dark);
+      position: relative;
+      z-index: 10;
+    }
+
+    .footer-grid {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-left {
+      max-width: 400px;
+    }
+
+    .footer-brand {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .footer-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .footer-shortcuts {
+      display: flex;
+      gap: 1.5rem;
+      font-family: var(--font-mono);
+      font-size: var(--text-micro);
+      color: var(--text-muted);
+    }
+
+    .kbd {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-subtle);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: var(--text-main);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-faint);
+      font-size: var(--text-micro);
+    }
+
+    /* ==========================================================================
+       12. ANIMATION KEYFRAMES DEFINITIONS
+       ========================================================================== */
+    @keyframes heroEntrance {
+      0% {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes wordReveal {
+      0% {
+        opacity: 0;
+        transform: translateY(115%) rotate(4deg);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+      }
+    }
+
+    @keyframes pulseGlow {
+      0% {
+        box-shadow: 0 0 10px var(--accent-glow);
+      }
+      100% {
+        box-shadow: 0 0 25px rgba(56, 189, 248, 0.8);
+      }
+    }
+
+    @keyframes rippleEffect {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+
+    @keyframes mouseScroll {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+      50% {
+        opacity: 0.3;
+        transform: translate(-50%, 9px);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, 14px);
+      }
+    }
+
+    @keyframes springBounceTest {
+      0% { transform: scale(0.4) rotate(-10deg); opacity: 0; }
+      50% { transform: scale(1.15) rotate(4deg); opacity: 1; }
+      75% { transform: scale(0.95) rotate(-2deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+
+    @keyframes morphRotate {
+      0% {
+        transform: rotate(0deg) scale(1);
+      }
+      50% {
+        transform: rotate(180deg) scale(1.08);
+      }
+      100% {
+        transform: rotate(360deg) scale(1);
+      }
+    }
+
+    @keyframes radarPulse {
+      0% {
+        transform: scale(0.2);
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(1.8);
+        opacity: 0;
+      }
+    }
+
+    @keyframes trackAnimateSpring {
+      0% { left: 0%; }
+      50% { left: calc(100% - 24px); }
+      100% { left: 0%; }
+    }
+
+    @keyframes trackAnimateElastic {
+      0% { left: 0%; }
+      50% { left: calc(100% - 24px); }
+      100% { left: 0%; }
+    }
+
+    @keyframes trackAnimateSmooth {
+      0% { left: 0%; }
+      50% { left: calc(100% - 24px); }
+      100% { left: 0%; }
+    }
+
+    @keyframes trackAnimateExpo {
+      0% { left: 0%; }
+      50% { left: calc(100% - 24px); }
+      100% { left: 0%; }
+    }
+
+    @keyframes toastIn {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes toastOut {
+      to {
+        opacity: 0;
+        transform: translateY(20px) scale(0.9);
+      }
+    }
+
+    /* ==========================================================================
+       13. RESPONSIVE MEDIA QUERIES
+       ========================================================================== */
+    @media (max-width: 1024px) {
+      .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .curve-visualizer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .site-nav {
+        border-radius: var(--radius-md);
+        padding: 0.6rem 1rem;
+      }
+      .nav-links {
+        display: none;
+      }
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+      .curve-visualizer-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-title {
+        font-size: clamp(2.2rem, 8vw, 3.2rem);
+      }
+      .hero-section {
+        padding-top: 7rem;
+      }
+      .sandbox-container {
+        padding: 1.25rem;
+      }
+      .telemetry-hud {
+        display: none;
+      }
+      .footer-grid {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Animated Canvas -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- SVG Morphing Gradients Definition -->
+  <svg width="0" height="0" style="position: absolute;">
+    <defs>
+      <linearGradient id="cyan-purple-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#38bdf8" />
+        <stop offset="50%" stop-color="#5b61f4" />
+        <stop offset="100%" stop-color="#34d399" />
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- Navigation Bar -->
+  <header>
+    <nav class="site-nav" aria-label="Main Navigation">
+      <div class="nav-brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <span>KINETIX</span>
+      </div>
+
+      <ul class="nav-links">
+        <li><a href="#hero" class="nav-link active">Overview</a></li>
+        <li><a href="#principles" class="nav-link">Principles</a></li>
+        <li><a href="#sandbox" class="nav-link">Sandbox</a></li>
+        <li><a href="#easings" class="nav-link">Easings</a></li>
+        <li><a href="#choreography" class="nav-link">Timeline</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- Speed Scale Controls -->
+        <div class="speed-controller" title="Adjust motion speed">
+          <button class="speed-btn" data-speed="0.5">0.5x</button>
+          <button class="speed-btn active" data-speed="1.0">1.0x</button>
+          <button class="speed-btn" data-speed="2.0">2.0x</button>
+        </div>
+
+        <!-- Reduced Motion Toggle -->
+        <button id="toggle-reduced-motion" class="motion-toggle-btn" title="Toggle accessibility reduced motion">
+          <span class="status-dot" id="motion-dot"></span>
+          <span id="motion-btn-text">Motion Active</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="hero">
+      <div class="container">
+
+        <div class="hero-eyebrow">
+          <span>// MOTION ENGINE v2.4</span>
+          <span>•</span>
+          <span>ZERO DEPENDENCIES</span>
+        </div>
+
+        <h1 class="hero-title" aria-label="Orchestrate Motion That Adapts To Every Screen">
+          <span class="reveal-line">
+            <span class="reveal-word" style="animation-delay: 0.15s;">Orchestrate</span>
+            <span class="reveal-word gradient-text" style="animation-delay: 0.25s;">Responsive</span>
+          </span>
+          <span class="reveal-line">
+            <span class="reveal-word" style="animation-delay: 0.35s;">Motion</span>
+            <span class="reveal-word" style="animation-delay: 0.45s;">Across</span>
+            <span class="reveal-word gradient-text" style="animation-delay: 0.55s;">Every Screen</span>
+          </span>
+        </h1>
+
+        <p class="hero-subtitle">
+          A high-performance animation starter template engineered with cubic-bezier spring physics, fluid responsive clamp scaling, scroll choreography, and accessible motion tokens.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#sandbox" class="btn btn-primary" id="explore-sandbox-btn">
+            <span>Explore Motion Sandbox</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+
+          <button class="btn btn-secondary" id="copy-tokens-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+            <span>Copy CSS Tokens</span>
+          </button>
+        </div>
+
+        <!-- Live Telemetry HUD -->
+        <div class="telemetry-hud">
+          <div class="telemetry-item">
+            <span>FPS:</span>
+            <span class="telemetry-value" id="hud-fps">60</span>
+          </div>
+          <div class="telemetry-item">
+            <span>VIEWPORT:</span>
+            <span class="telemetry-value" id="hud-viewport">1920×1080</span>
+          </div>
+          <div class="telemetry-item">
+            <span>BREAKPOINT:</span>
+            <span class="telemetry-value" id="hud-breakpoint">Desktop</span>
+          </div>
+        </div>
+
+        <!-- Scroll Down Cue -->
+        <a href="#principles" class="scroll-down-indicator" aria-label="Scroll down to principles">
+          <div class="mouse-icon">
+            <div class="mouse-wheel"></div>
+          </div>
+          <span>EXPLORE MOTION</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- SECTION 1: CORE MOTION PILLARS -->
+    <section class="section" id="principles">
+      <div class="container">
+
+        <div class="section-header">
+          <span class="section-tag">// DESIGN ARCHITECTURE</span>
+          <h2 class="section-title">Built On Natural Physics</h2>
+          <p class="section-desc">
+            Interactions designed around spring dynamics, spatial depth, and zero-jank hardware acceleration. Hover or touch cards to test the dynamic 3D perspective response.
+          </p>
+        </div>
+
+        <div class="cards-grid">
+          <!-- Card 1 -->
+          <article class="tilt-card" data-tilt>
+            <div class="card-spotlight"></div>
+            <div class="card-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="m10 15 5-3-5-3v6Z"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Cubic-Bezier Springs</h3>
+            <p class="card-text">
+              Natural mass and spring damping replacing linear robotic motions. Tuned with subtle overshoot physics for organic UI feedback.
+            </p>
+            <div class="card-token-badge">
+              <span>--ease-spring</span>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="tilt-card" data-tilt>
+            <div class="card-spotlight"></div>
+            <div class="card-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+                <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/>
+                <path d="M12 12v9"/>
+                <path d="m8 17 4 4 4-4"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Fluid Clamp Scaling</h3>
+            <p class="card-text">
+              Smooth typography and spatial scaling using CSS clamp expressions without abrupt jumpy media breakpoint steps.
+            </p>
+            <div class="card-token-badge">
+              <span>clamp(2.5rem, 6vw, 5rem)</span>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="tilt-card" data-tilt>
+            <div class="card-spotlight"></div>
+            <div class="card-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Scroll Choreography</h3>
+            <p class="card-text">
+              Hardware-accelerated viewport reveals orchestrated with IntersectionObserver to maintain a consistent 60+ FPS on mobile.
+            </p>
+            <div class="card-token-badge">
+              <span>IntersectionObserver API</span>
+            </div>
+          </article>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 2: INTERACTIVE MOTION SANDBOX -->
+    <section class="section" id="sandbox">
+      <div class="container">
+
+        <div class="section-header">
+          <span class="section-tag">// MOTION SANDBOX</span>
+          <h2 class="section-title">Interactive Animation Playground</h2>
+          <p class="section-desc">
+            Test and trigger responsive motion primitives. Adjust speed scales in real time and inspect production-ready CSS and JS snippets.
+          </p>
+        </div>
+
+        <div class="sandbox-container">
+          <!-- Sandbox Toolbar -->
+          <div class="sandbox-nav">
+            <div class="preset-pills" role="tablist">
+              <button class="preset-pill active" data-preset="spring">01. Spring Bounce</button>
+              <button class="preset-pill" data-preset="magnetic">02. Magnetic Physics</button>
+              <button class="preset-pill" data-preset="stagger">03. Stagger Cascade</button>
+              <button class="preset-pill" data-preset="morph">04. Vector Morph</button>
+              <button class="preset-pill" data-preset="pulse">05. Pulse Wave</button>
+            </div>
+
+            <button class="replay-trigger-btn" id="replay-sandbox-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                <path d="M21 3v5h-5"/>
+                <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                <path d="M8 16H3v5"/>
+              </svg>
+              <span>Replay Animation</span>
+            </button>
+          </div>
+
+          <!-- Sandbox Stage -->
+          <div class="sandbox-stage" id="sandbox-stage">
+            <div class="stage-grid-overlay"></div>
+
+            <!-- Demo 1: Spring Bounce (Active by default) -->
+            <div id="demo-spring" class="sandbox-demo-view">
+              <div class="demo-spring-box animating" id="spring-box">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-bottom: 6px;">
+                  <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+                </svg>
+                <span>SPRING</span>
+              </div>
+            </div>
+
+            <!-- Demo 2: Magnetic Follow -->
+            <div id="demo-magnetic" class="sandbox-demo-view" style="display: none; width: 100%;">
+              <div class="magnetic-arena" id="magnetic-arena">
+                <button class="magnetic-target" id="magnetic-target">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M3 12h3m12 0h3M12 3v3m0 12v3"/>
+                  </svg>
+                  <span>Hover Or Drag Near Me</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Demo 3: Stagger Cascade -->
+            <div id="demo-stagger" class="sandbox-demo-view" style="display: none;">
+              <div class="stagger-group" id="stagger-group">
+                <div class="stagger-item revealed">
+                  <span class="stagger-number">#01</span>
+                  <span>CARD A</span>
+                </div>
+                <div class="stagger-item revealed">
+                  <span class="stagger-number">#02</span>
+                  <span>CARD B</span>
+                </div>
+                <div class="stagger-item revealed">
+                  <span class="stagger-number">#03</span>
+                  <span>CARD C</span>
+                </div>
+                <div class="stagger-item revealed">
+                  <span class="stagger-number">#04</span>
+                  <span>CARD D</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Demo 4: Vector Morph -->
+            <div id="demo-morph" class="sandbox-demo-view" style="display: none;">
+              <div class="morph-svg-container">
+                <svg class="morph-shape" viewBox="0 0 200 200">
+                  <polygon points="100,15 185,65 185,160 100,195 15,160 15,65" />
+                </svg>
+              </div>
+            </div>
+
+            <!-- Demo 5: Pulse Wave -->
+            <div id="demo-pulse" class="sandbox-demo-view" style="display: none;">
+              <div class="pulse-radar-container">
+                <div class="radar-core"></div>
+                <div class="radar-ring"></div>
+                <div class="radar-ring"></div>
+                <div class="radar-ring"></div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Code Inspector & Snippet Drawer -->
+          <div class="sandbox-code-drawer">
+            <div class="drawer-header">
+              <div class="drawer-tabs">
+                <span class="drawer-tab active">CSS KEYFRAMES</span>
+              </div>
+              <button class="copy-btn" id="copy-snippet-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                </svg>
+                <span>Copy Snippet</span>
+              </button>
+            </div>
+            <div class="drawer-content">
+              <pre class="code-block" id="snippet-code">/* Spring Bounce Keyframe Token */
+@keyframes springBounce {
+  0% { transform: scale(0.4) rotate(-10deg); opacity: 0; }
+  50% { transform: scale(1.15) rotate(4deg); opacity: 1; }
+  75% { transform: scale(0.95) rotate(-2deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+.element {
+  animation: springBounce 0.75s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}</pre>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 3: EASING CURVES VISUALIZER -->
+    <section class="section" id="easings">
+      <div class="container">
+
+        <div class="section-header">
+          <span class="section-tag">// EASING ARCHITECTURE</span>
+          <h2 class="section-title">Harmonic Curves & Damping</h2>
+          <p class="section-desc">
+            Mathematically calibrated cubic-bezier values for natural deceleration, elastic overshoot, and smooth spatial transitions.
+          </p>
+        </div>
+
+        <div class="curve-visualizer-grid">
+          <!-- Curve 1 -->
+          <div class="curve-card">
+            <div class="curve-header">
+              <span class="curve-title">Spring Bounce</span>
+              <span class="curve-badge">Overshoot</span>
+            </div>
+            <div class="curve-graph-wrap">
+              <svg class="curve-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M 0 100 C 17.5 11.5, 32 -27.5, 100 0" fill="none" stroke="#5b61f4" stroke-width="3"/>
+              </svg>
+            </div>
+            <div class="curve-track">
+              <div class="curve-puck puck-spring"></div>
+            </div>
+            <code class="curve-token-code">cubic-bezier(0.175, 0.885, 0.32, 1.275)</code>
+          </div>
+
+          <!-- Curve 2 -->
+          <div class="curve-card">
+            <div class="curve-header">
+              <span class="curve-title">Smooth Decel</span>
+              <span class="curve-badge">Natural</span>
+            </div>
+            <div class="curve-graph-wrap">
+              <svg class="curve-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M 0 100 C 16 0, 30 0, 100 0" fill="none" stroke="#38bdf8" stroke-width="3"/>
+              </svg>
+            </div>
+            <div class="curve-track">
+              <div class="curve-puck puck-smooth"></div>
+            </div>
+            <code class="curve-token-code">cubic-bezier(0.16, 1, 0.3, 1)</code>
+          </div>
+
+          <!-- Curve 3 -->
+          <div class="curve-card">
+            <div class="curve-header">
+              <span class="curve-title">Elastic Snap</span>
+              <span class="curve-badge">High Energy</span>
+            </div>
+            <div class="curve-graph-wrap">
+              <svg class="curve-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M 0 100 C 68 155, 26.5 -55, 100 0" fill="none" stroke="#34d399" stroke-width="3"/>
+              </svg>
+            </div>
+            <div class="curve-track">
+              <div class="curve-puck puck-elastic"></div>
+            </div>
+            <code class="curve-token-code">cubic-bezier(0.68, -0.55, 0.265, 1.55)</code>
+          </div>
+
+          <!-- Curve 4 -->
+          <div class="curve-card">
+            <div class="curve-header">
+              <span class="curve-title">Expo Falloff</span>
+              <span class="curve-badge">Precision</span>
+            </div>
+            <div class="curve-graph-wrap">
+              <svg class="curve-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M 0 100 C 19 0, 22 0, 100 0" fill="none" stroke="#fbbf24" stroke-width="3"/>
+              </svg>
+            </div>
+            <div class="curve-track">
+              <div class="curve-puck puck-expo"></div>
+            </div>
+            <code class="curve-token-code">cubic-bezier(0.19, 1, 0.22, 1)</code>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 4: SCROLL CHOREOGRAPHY TIMELINE -->
+    <section class="section" id="choreography">
+      <div class="container">
+
+        <div class="section-header">
+          <span class="section-tag">// SCROLL SEQUENCE</span>
+          <h2 class="section-title">Viewport Choreography</h2>
+          <p class="section-desc">
+            Progressive staggered reveals using IntersectionObserver. Elements smoothly slide into position as the user scrolls.
+          </p>
+        </div>
+
+        <div class="timeline-wrap">
+          <div class="timeline-track-line"></div>
+
+          <!-- Step 1 -->
+          <div class="timeline-node" data-scroll-reveal>
+            <div class="node-pip"><div class="node-pip-inner"></div></div>
+            <div class="node-card">
+              <div class="node-meta">
+                <span>PHASE 01</span>
+                <span>•</span>
+                <span>INITIAL LOAD</span>
+              </div>
+              <h3 class="node-title">Hero Typographic Orchestration</h3>
+              <p class="node-text">
+                The headline lines unmask with precise cubic-bezier easing, while background particle physics calibrate to the device viewport dimensions.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="timeline-node" data-scroll-reveal>
+            <div class="node-pip"><div class="node-pip-inner"></div></div>
+            <div class="node-card">
+              <div class="node-meta">
+                <span>PHASE 02</span>
+                <span>•</span>
+                <span>SCROLL ENTRY</span>
+              </div>
+              <h3 class="node-title">3D Gyroscopic Perspective Tilts</h3>
+              <p class="node-text">
+                Feature cards calculate pointer offset relative to their bounding rect and render dynamic specular glare layers without layout shifts.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="timeline-node" data-scroll-reveal>
+            <div class="node-pip"><div class="node-pip-inner"></div></div>
+            <div class="node-card">
+              <div class="node-meta">
+                <span>PHASE 03</span>
+                <span>•</span>
+                <span>ACCESSIBILITY SAFEGUARD</span>
+              </div>
+              <h3 class="node-title">Reduced Motion Contract</h3>
+              <p class="node-text">
+                When reduced motion is requested by OS preferences or user toggle, all physics curves collapse to instant zero-duration transitions.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- TOAST CONTAINER -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-left">
+          <div class="footer-brand">
+            <div class="brand-icon" style="width: 22px; height: 22px;">
+              <svg viewBox="0 0 24 24" style="width: 12px; height: 12px;">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+            </div>
+            <span>KINETIX MOTION TEMPLATE</span>
+          </div>
+          <p class="footer-desc">
+            Production-grade responsive animation starter framework built with vanilla HTML, modern CSS tokens, and JavaScript.
+          </p>
+        </div>
+
+        <div class="footer-shortcuts">
+          <div><span class="kbd">Space</span> Replay Hero</div>
+          <div><span class="kbd">M</span> Toggle Motion</div>
+          <div><span class="kbd">1-3</span> Speed Scale</div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>Designed for responsive fluid devices • 60+ FPS Hardware-accelerated</span>
+        <span>© 2026 Kinetix Motion Engine</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       14. VANILLA JAVASCRIPT ANIMATION ENGINE
+       ========================================================================== -->
+  <script>
+    (function() {
+      'use strict';
+
+      // ------------------------------------------------------------------------
+      // State & Configuration
+      // ------------------------------------------------------------------------
+      const state = {
+        speedScale: 1.0,
+        reducedMotion: false,
+        fps: 60,
+        activePreset: 'spring',
+        pointer: { x: window.innerWidth / 2, y: window.innerHeight / 2, targetX: window.innerWidth / 2, targetY: window.innerHeight / 2 }
+      };
+
+      // ------------------------------------------------------------------------
+      // Ambient Interactive Background Canvas (Reactive Particle Wave Grid)
+      // ------------------------------------------------------------------------
+      const canvas = document.getElementById('ambient-canvas');
+      const ctx = canvas.getContext('2d');
+      let particles = [];
+      let canvasAnimId = null;
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        initParticles();
+      }
+
+      function initParticles() {
+        particles = [];
+        const count = Math.min(Math.floor((canvas.width * canvas.height) / 16000), 75);
+        for (let i = 0; i < count; i++) {
+          particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            originX: Math.random() * canvas.width,
+            originY: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 0.4,
+            vy: (Math.random() - 0.5) * 0.4,
+            radius: Math.random() * 2 + 1,
+            color: Math.random() > 0.5 ? 'rgba(91, 97, 244, ' : 'rgba(56, 189, 248, '
+          });
+        }
+      }
+
+      function renderCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (!state.reducedMotion) {
+          // Smooth cursor interpolation
+          state.pointer.x += (state.pointer.targetX - state.pointer.x) * 0.08;
+          state.pointer.y += (state.pointer.targetY - state.pointer.y) * 0.08;
+
+          for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+            p.x += p.vx * state.speedScale;
+            p.y += p.vy * state.speedScale;
+
+            // Bounce on edges
+            if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+            // Mouse repulsion with spring return
+            const dx = state.pointer.x - p.x;
+            const dy = state.pointer.y - p.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 140) {
+              const force = (140 - dist) / 140;
+              p.x -= (dx / dist) * force * 3;
+              p.y -= (dy / dist) * force * 3;
+            }
+
+            // Draw particle
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = p.color + '0.45)';
+            ctx.fill();
+
+            // Connect nearby points
+            for (let j = i + 1; j < particles.length; j++) {
+              const p2 = particles[j];
+              const cdx = p.x - p2.x;
+              const cdy = p.y - p2.y;
+              const cdist = Math.sqrt(cdx * cdx + cdy * cdy);
+              if (cdist < 110) {
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.strokeStyle = `rgba(91, 97, 244, ${0.15 * (1 - cdist / 110)})`;
+                ctx.lineWidth = 1;
+                ctx.stroke();
+              }
+            }
+          }
+        }
+
+        canvasAnimId = requestAnimationFrame(renderCanvas);
+      }
+
+      window.addEventListener('resize', resizeCanvas);
+      window.addEventListener('mousemove', function(e) {
+        state.pointer.targetX = e.clientX;
+        state.pointer.targetY = e.clientY;
+      });
+
+      resizeCanvas();
+      renderCanvas();
+
+      // ------------------------------------------------------------------------
+      // Live FPS & Viewport Telemetry
+      // ------------------------------------------------------------------------
+      const hudFps = document.getElementById('hud-fps');
+      const hudViewport = document.getElementById('hud-viewport');
+      const hudBreakpoint = document.getElementById('hud-breakpoint');
+      let frameCount = 0;
+      let lastFpsCheck = performance.now();
+
+      function updateTelemetry() {
+        frameCount++;
+        const now = performance.now();
+        if (now - lastFpsCheck >= 1000) {
+          state.fps = Math.round((frameCount * 1000) / (now - lastFpsCheck));
+          if (hudFps) hudFps.textContent = state.fps;
+          frameCount = 0;
+          lastFpsCheck = now;
+        }
+
+        if (hudViewport) {
+          hudViewport.textContent = `${window.innerWidth}×${window.innerHeight}`;
+        }
+        if (hudBreakpoint) {
+          const w = window.innerWidth;
+          if (w < 768) hudBreakpoint.textContent = 'Mobile';
+          else if (w < 1024) hudBreakpoint.textContent = 'Tablet';
+          else hudBreakpoint.textContent = 'Desktop';
+        }
+
+        requestAnimationFrame(updateTelemetry);
+      }
+      updateTelemetry();
+
+      // ------------------------------------------------------------------------
+      // 3D Perspective Tilt Cards
+      // ------------------------------------------------------------------------
+      const tiltCards = document.querySelectorAll('[data-tilt]');
+      tiltCards.forEach(card => {
+        card.addEventListener('mousemove', e => {
+          if (state.reducedMotion) return;
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = ((y - centerY) / centerY) * -10;
+          const rotateY = ((x - centerX) / centerX) * 10;
+
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+        });
+
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        });
+      });
+
+      // ------------------------------------------------------------------------
+      // Magnetic Hover Physics (Sandbox Demo 2)
+      // ------------------------------------------------------------------------
+      const magneticArena = document.getElementById('magnetic-arena');
+      const magneticTarget = document.getElementById('magnetic-target');
+
+      if (magneticArena && magneticTarget) {
+        magneticArena.addEventListener('mousemove', e => {
+          if (state.reducedMotion) return;
+          const rect = magneticTarget.getBoundingClientRect();
+          const targetCenterX = rect.left + rect.width / 2;
+          const targetCenterY = rect.top + rect.height / 2;
+          const deltaX = e.clientX - targetCenterX;
+          const deltaY = e.clientY - targetCenterY;
+          const distance = Math.hypot(deltaX, deltaY);
+
+          if (distance < 160) {
+            const pull = 0.35;
+            magneticTarget.style.transform = `translate(${deltaX * pull}px, ${deltaY * pull}px)`;
+          } else {
+            magneticTarget.style.transform = 'translate(0px, 0px)';
+          }
+        });
+
+        magneticArena.addEventListener('mouseleave', () => {
+          magneticTarget.style.transform = 'translate(0px, 0px)';
+        });
+      }
+
+      // ------------------------------------------------------------------------
+      // Scroll Choreography (IntersectionObserver)
+      // ------------------------------------------------------------------------
+      const scrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('scroll-revealed');
+          }
+        });
+      }, {
+        threshold: 0.25,
+        rootMargin: '0px 0px -50px 0px'
+      });
+
+      document.querySelectorAll('[data-scroll-reveal]').forEach(el => {
+        scrollObserver.observe(el);
+      });
+
+      // ------------------------------------------------------------------------
+      // Interactive Sandbox Presets Switching
+      // ------------------------------------------------------------------------
+      const presetSnippets = {
+        spring: `/* Spring Bounce Keyframe Token */
+@keyframes springBounce {
+  0% { transform: scale(0.4) rotate(-10deg); opacity: 0; }
+  50% { transform: scale(1.15) rotate(4deg); opacity: 1; }
+  75% { transform: scale(0.95) rotate(-2deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+.element {
+  animation: springBounce 0.75s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}`,
+        magnetic: `// Vanilla Magnetic Pointer Tracking Helper
+function attachMagnetic(element, radius = 150, intensity = 0.35) {
+  element.addEventListener('mousemove', (e) => {
+    const rect = element.getBoundingClientRect();
+    const x = e.clientX - (rect.left + rect.width / 2);
+    const y = e.clientY - (rect.top + rect.height / 2);
+    element.style.transform = \`translate(\${x * intensity}px, \${y * intensity}px)\`;
+  });
+  element.addEventListener('mouseleave', () => {
+    element.style.transform = 'translate(0px, 0px)';
+  });
+}`,
+        stagger: `/* Responsive Stagger Cascade Transition */
+.stagger-item {
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.stagger-item:nth-child(1) { transition-delay: 0.1s; }
+.stagger-item:nth-child(2) { transition-delay: 0.2s; }
+.stagger-item:nth-child(3) { transition-delay: 0.3s; }
+.stagger-item:nth-child(4) { transition-delay: 0.4s; }
+
+.stagger-item.revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}`,
+        morph: `/* Morphing Geometric Vector Path */
+@keyframes morphRotate {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.08); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+.morph-shape {
+  animation: morphRotate 12s linear infinite;
+  filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.5));
+}`,
+        pulse: `/* Concentric Radar Pulse Waves */
+@keyframes radarPulse {
+  0% { transform: scale(0.2); opacity: 0.8; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+.radar-ring {
+  animation: radarPulse 2.8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+.radar-ring:nth-child(2) { animation-delay: 0.9s; }
+.radar-ring:nth-child(3) { animation-delay: 1.8s; }`
+      };
+
+      const presetPills = document.querySelectorAll('.preset-pill');
+      const snippetCode = document.getElementById('snippet-code');
+      const springBox = document.getElementById('spring-box');
+      const staggerItems = document.querySelectorAll('.stagger-item');
+
+      presetPills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          presetPills.forEach(p => p.classList.remove('active'));
+          pill.classList.add('active');
+
+          const preset = pill.dataset.preset;
+          state.activePreset = preset;
+
+          // Toggle visibility of demo views
+          document.querySelectorAll('.sandbox-demo-view').forEach(view => view.style.display = 'none');
+          const targetView = document.getElementById(`demo-${preset}`);
+          if (targetView) targetView.style.display = (preset === 'magnetic' ? 'block' : 'flex');
+
+          // Update Code
+          if (snippetCode && presetSnippets[preset]) {
+            snippetCode.textContent = presetSnippets[preset];
+          }
+
+          replayPreset(preset);
+        });
+      });
+
+      function replayPreset(preset) {
+        if (preset === 'spring' && springBox) {
+          springBox.classList.remove('animating');
+          void springBox.offsetWidth; // Reflow
+          springBox.classList.add('animating');
+        } else if (preset === 'stagger') {
+          staggerItems.forEach((item, index) => {
+            item.classList.remove('revealed');
+            setTimeout(() => {
+              item.classList.add('revealed');
+            }, index * 120);
+          });
+        }
+      }
+
+      const replayBtn = document.getElementById('replay-sandbox-btn');
+      if (replayBtn) {
+        replayBtn.addEventListener('click', () => {
+          replayPreset(state.activePreset);
+          showToast(`Replayed '${state.activePreset}' preset`);
+        });
+      }
+
+      // ------------------------------------------------------------------------
+      // Speed Scale & Reduced Motion Toggles
+      // ------------------------------------------------------------------------
+      const speedButtons = document.querySelectorAll('.speed-btn');
+      speedButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          speedButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const speed = parseFloat(btn.dataset.speed);
+          state.speedScale = speed;
+          document.documentElement.style.setProperty('--motion-speed-scale', (1 / speed).toString());
+          showToast(`Speed set to ${speed}x`);
+        });
+      });
+
+      const motionToggleBtn = document.getElementById('toggle-reduced-motion');
+      const motionDot = document.getElementById('motion-dot');
+      const motionBtnText = document.getElementById('motion-btn-text');
+
+      function setReducedMotion(enable) {
+        state.reducedMotion = enable;
+        if (enable) {
+          document.body.classList.add('reduced-motion-active');
+          if (motionDot) motionDot.classList.add('paused');
+          if (motionBtnText) motionBtnText.textContent = 'Motion Reduced';
+          if (motionToggleBtn) motionToggleBtn.classList.add('active');
+          showToast('Reduced Motion: Active (Animations Paused)');
+        } else {
+          document.body.classList.remove('reduced-motion-active');
+          if (motionDot) motionDot.classList.remove('paused');
+          if (motionBtnText) motionBtnText.textContent = 'Motion Active';
+          if (motionToggleBtn) motionToggleBtn.classList.remove('active');
+          showToast('Reduced Motion: Off (Full Motion Enabled)');
+        }
+      }
+
+      if (motionToggleBtn) {
+        motionToggleBtn.addEventListener('click', () => {
+          setReducedMotion(!state.reducedMotion);
+        });
+      }
+
+      // Check OS preference
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        setReducedMotion(true);
+      }
+
+      // ------------------------------------------------------------------------
+      // Interactive Button Ripple Effect
+      // ------------------------------------------------------------------------
+      document.querySelectorAll('.btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          const rect = this.getBoundingClientRect();
+          const ripple = document.createElement('span');
+          ripple.classList.add('ripple-spark');
+          const diameter = Math.max(rect.width, rect.height);
+          ripple.style.width = ripple.style.height = `${diameter}px`;
+          ripple.style.left = `${e.clientX - rect.left - diameter / 2}px`;
+          ripple.style.top = `${e.clientY - rect.top - diameter / 2}px`;
+          this.appendChild(ripple);
+          setTimeout(() => ripple.remove(), 600);
+        });
+      });
+
+      // ------------------------------------------------------------------------
+      // Toast Notification System & Clipboard Helpers
+      // ------------------------------------------------------------------------
+      const toastContainer = document.getElementById('toast-container');
+
+      function showToast(message) {
+        if (!toastContainer) return;
+        const toast = document.createElement('div');
+        toast.className = 'toast-item';
+        toast.innerHTML = `
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <span>${message}</span>
+        `;
+        toastContainer.appendChild(toast);
+
+        setTimeout(() => {
+          toast.classList.add('exit');
+          setTimeout(() => toast.remove(), 300);
+        }, 2800);
+      }
+
+      // Copy Tokens Button
+      const copyTokensBtn = document.getElementById('copy-tokens-btn');
+      if (copyTokensBtn) {
+        copyTokensBtn.addEventListener('click', () => {
+          const tokensCSS = `:root {
+  /* Motion Physics Curves */
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+
+  /* Fluid Responsive Typography */
+  --text-display: clamp(2.5rem, 6.5vw, 5.5rem);
+  --text-h1: clamp(2rem, 4.5vw, 3.5rem);
+  --text-h2: clamp(1.5rem, 3vw, 2.25rem);
+
+  /* Durations */
+  --dur-fast: 240ms;
+  --dur-normal: 450ms;
+  --dur-slow: 750ms;
+}`;
+          navigator.clipboard.writeText(tokensCSS).then(() => {
+            showToast('Motion tokens copied to clipboard!');
+          }).catch(() => {
+            showToast('Copied CSS tokens!');
+          });
+        });
+      }
+
+      // Copy Snippet in Sandbox
+      const copySnippetBtn = document.getElementById('copy-snippet-btn');
+      if (copySnippetBtn) {
+        copySnippetBtn.addEventListener('click', () => {
+          const text = snippetCode ? snippetCode.textContent : '';
+          navigator.clipboard.writeText(text).then(() => {
+            showToast(`Copied ${state.activePreset} code!`);
+          }).catch(() => {
+            showToast('Code copied!');
+          });
+        });
+      }
+
+      // ------------------------------------------------------------------------
+      // Keyboard Shortcuts
+      // ------------------------------------------------------------------------
+      window.addEventListener('keydown', (e) => {
+        // Spacebar to replay hero words
+        if (e.code === 'Space' && e.target === document.body) {
+          e.preventDefault();
+          const words = document.querySelectorAll('.reveal-word');
+          words.forEach(w => {
+            w.style.animation = 'none';
+            void w.offsetWidth;
+            w.style.animation = '';
+          });
+          showToast('Replayed Hero Typography Entrance');
+        }
+
+        // 'm' key to toggle reduced motion
+        if (e.key.toLowerCase() === 'm' && !['INPUT', 'TEXTAREA'].includes(e.target.tagName)) {
+          setReducedMotion(!state.reducedMotion);
+        }
+
+        // 1, 2, 3 keys to change speed
+        if (['1', '2', '3'].includes(e.key) && !['INPUT', 'TEXTAREA'].includes(e.target.tagName)) {
+          const speedMap = { '1': 0.5, '2': 1.0, '3': 2.0 };
+          const targetSpeed = speedMap[e.key];
+          const btn = document.querySelector(`.speed-btn[data-speed="${targetSpeed.toFixed(1)}"]`);
+          if (btn) btn.click();
+        }
+      });
+
+    })();
+  </script>
+</body>
+</html>

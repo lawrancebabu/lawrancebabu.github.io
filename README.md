@@ -2,4 +2,4 @@
 
 Personal portfolio for [Lawrance Babu Gain](https://lawrancebabu.github.io), a senior WordPress and Laravel developer in Khulna, Bangladesh.
 
-The site is a single-page static page, served by GitHub Pages from the `main` branch root.
+The live site is a single-page page served by GitHub Pages from the `main` branch root. Visual design is adapted from the Kinetix motion template stored in `template-source.html`.
