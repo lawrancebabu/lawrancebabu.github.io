@@ -526,18 +526,22 @@
 
     /* Hero Telemetry HUD */
     .telemetry-hud {
-      display: inline-flex;
+      display: flex;
       align-items: center;
+      justify-content: center;
+      width: max-content;
+      max-width: 100%;
+      margin: 2rem auto 0;
       gap: 1.5rem;
-      padding: 0.6rem 1.25rem;
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
+      padding: 0.7rem 1.35rem;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-highlight);
       border-radius: var(--radius-full);
       font-family: var(--font-mono);
       font-size: var(--text-micro);
       color: var(--text-muted);
       opacity: 0;
-      animation: heroEntrance 0.8s var(--ease-smooth) 1s forwards;
+      animation: heroEntrance 0.8s var(--ease-smooth) 0.7s forwards;
     }
 
     .telemetry-item {
