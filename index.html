@@ -124,6 +124,19 @@
       animation-iteration-count: 1 !important;
       transition-duration: 0.001ms !important;
     }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-eyebrow,
+      .telemetry-hud,
+      .hero-subtitle,
+      .hero-cta-group {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+      .timeline-node {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
 
     /* ==========================================================================
        2. GLOBAL RESETS & BASE STYLING
@@ -1808,7 +1821,7 @@
             </div>
             <h3 class="card-title">In technology since 2007</h3>
             <p class="card-text">
-              I have been working in technology since 2007, and I still build and ship software every week.
+              I have been working in technology since 2007.
             </p>
             <div class="card-token-badge"><span>Since 2007</span></div>
           </article>
@@ -1830,7 +1843,8 @@
           </article>
         </div>
 
-        <div class="timeline-track" style="margin-top: 4rem;">
+        <div class="timeline-wrap" style="margin-top: 4rem;">
+          <div class="timeline-track-line"></div>
           <div class="timeline-node" data-scroll-reveal>
             <div class="node-pip"><div class="node-pip-inner"></div></div>
             <div class="node-card">
@@ -2268,7 +2282,7 @@
       const scrollObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('revealed');
+            entry.target.classList.add('scroll-revealed');
           }
         });
       }, { threshold: 0.15 });
