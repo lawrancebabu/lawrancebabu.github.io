@@ -68,7 +68,7 @@
     --radius: 3px;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
+  html{scroll-behavior:smooth; scroll-padding-top:96px;}
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
     *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
@@ -115,7 +115,7 @@
 
   /* ---------- NAV ---------- */
   nav{
-    position:fixed; top:0; left:0; right:0; z-index:100;
+    position:fixed; top:0; left:0; right:0; z-index:200;
     padding:22px 0; transition:padding .35s, background .35s, border-color .35s, backdrop-filter .35s;
     border-bottom:1px solid transparent;
   }
@@ -138,7 +138,7 @@
   .burger.open span:nth-child(2){ opacity:0; }
   .burger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
   .mobile-menu{
-    position:fixed; inset:0; background:#0a0a0b; z-index:150;
+    position:fixed; inset:0; background:#0a0a0b; z-index:190; padding-top:96px;
     display:flex; flex-direction:column; justify-content:center; gap:26px; padding:32px;
     transform:translateY(-100%); transition:transform .5s cubic-bezier(.2,.8,.2,1);
   }
@@ -338,8 +338,16 @@
   @media (max-width:860px){ .about-grid{ grid-template-columns:1fr; gap:36px; } }
   .about-photo{
     aspect-ratio:4/5; border:1px solid var(--border); border-radius:6px; background:var(--bg-raised);
-    display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:13px; color:var(--text-faint); text-align:center; padding:20px;
+    overflow:hidden; padding:0;
   }
+  .about-photo picture, .about-photo img{
+    width:100%; height:100%; display:block;
+  }
+  .about-photo img{
+    object-fit:cover; object-position:center 12%; border-radius:6px;
+  }
+  .cv-links{ display:flex; flex-wrap:wrap; gap:12px; margin-top:28px; }
+  .cv-links .btn{ padding:11px 18px; font-size:13.5px; }
   .about-copy p{ color:var(--text-dim); font-size:16px; margin-bottom:18px; }
   .care-list{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:26px; }
   .care-list div{ font-family:var(--mono); font-size:13px; color:var(--text-dim); padding:10px 0; border-bottom:1px solid var(--border-soft); }
@@ -398,6 +406,21 @@
   }
   .skip-link:focus{ top:12px; }
 
+  body.menu-open{ overflow:hidden; }
+
+  .back-to-top{
+    position:fixed; right:22px; bottom:22px; z-index:180;
+    width:44px; height:44px; border-radius:6px;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(16,16,18,0.92); border:1px solid var(--border); color:var(--text);
+    opacity:0; visibility:hidden; pointer-events:none;
+    transform:translateY(8px);
+    transition:opacity .25s, visibility .25s, transform .25s, border-color .25s, color .25s;
+  }
+  .back-to-top.visible{ opacity:1; visibility:visible; pointer-events:auto; transform:translateY(0); }
+  .back-to-top:hover{ border-color:var(--accent-line); color:var(--accent-bright); }
+  .back-to-top svg{ width:18px; height:18px; }
+
   /* ================= NEW: EXPERIENCE LAYER ================= */
 
   /* film grain */
@@ -421,7 +444,7 @@
     display:flex; align-items:center; justify-content:center; flex-direction:column; gap:22px;
     transition:opacity .7s ease, visibility .7s ease;
   }
-  .loader.hide{ opacity:0; visibility:hidden; }
+  .loader.hide{ opacity:0; visibility:hidden; pointer-events:none; }
   .loader-mark{ font-family:var(--serif); font-weight:800; font-size:22px; letter-spacing:-0.01em; }
   .loader-mark span{ color:var(--accent); }
   .loader-bar{ width:220px; height:1px; background:var(--border); position:relative; overflow:hidden; }
@@ -593,7 +616,7 @@
     </div>
     <div class="nav-cta">
       <a href="mailto:lawrance1020@gmail.com?subject=Project%20enquiry" class="btn btn-ghost">Hire me <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <button type="button" class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
   </div>
 </nav>
@@ -623,6 +646,8 @@
       <div class="hero-btns">
         <a href="mailto:lawrance1020@gmail.com?subject=Project%20enquiry" class="btn btn-primary">Hire me <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <a href="#work" class="btn btn-ghost">View selected work</a>
+        <a href="assets/cv/Lawrance-Babu-Gain-CV-WordPress-Mid.pdf" class="btn btn-ghost" download="Lawrance-Babu-Gain-CV-WordPress-Mid.pdf">WordPress CV</a>
+        <a href="assets/cv/Lawrance-Babu-Gain-CV-Laravel-Mid.pdf" class="btn btn-ghost" download="Lawrance-Babu-Gain-CV-Laravel-Mid.pdf">Laravel CV</a>
       </div>
       <div class="hero-stack">WordPress&nbsp; • &nbsp;WooCommerce&nbsp; • &nbsp;Laravel&nbsp; • &nbsp;PHP&nbsp; • &nbsp;MySQL&nbsp; • &nbsp;REST APIs</div>
     </div>
@@ -753,7 +778,7 @@
         <h3>Auth Gate Popup</h3>
         <div class="tech-tags"><span class="tech-tag">WordPress</span><span class="tech-tag">WooCommerce</span><span class="tech-tag">PHP</span></div>
         <div class="cs-block"><h4>Overview</h4><p>A WordPress plugin that gates the entire site behind a non-dismissible login / registration popup and requires login before WooCommerce purchases.</p></div>
-        <a href="https://github.com/lawrancebabu/auth-gate-popup" class="btn btn-ghost" rel="noopener noreferrer">View on GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="https://github.com/lawrancebabu/auth-gate-popup" class="btn btn-ghost" rel="noopener noreferrer" target="_blank">View on GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
     </div>
 
@@ -773,7 +798,7 @@
         <h3>Custom Reset Password</h3>
         <div class="tech-tags"><span class="tech-tag">WordPress</span><span class="tech-tag">PHP</span></div>
         <div class="cs-block"><h4>Overview</h4><p>A WordPress plugin that replaces the default wp-login.php password reset screen with a styled, on-brand front-end page, complete with a strength meter and secure password suggestions.</p></div>
-        <a href="https://github.com/lawrancebabu/custom-reset-password" class="btn btn-ghost" rel="noopener noreferrer">View on GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="https://github.com/lawrancebabu/custom-reset-password" class="btn btn-ghost" rel="noopener noreferrer" target="_blank">View on GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
     </div>
 
@@ -793,7 +818,7 @@
         <h3>Smart Banner</h3>
         <div class="tech-tags"><span class="tech-tag">WordPress</span><span class="tech-tag">PHP</span></div>
         <div class="cs-block"><h4>Overview</h4><p>A WordPress plugin for stackable, site-wide announcement banners with scheduling, live countdowns, drag-to-reorder and remembered dismissals.</p></div>
-        <a href="https://github.com/lawrancebabu/smart-banner" class="btn btn-ghost" rel="noopener noreferrer">View on GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="https://github.com/lawrancebabu/smart-banner" class="btn btn-ghost" rel="noopener noreferrer" target="_blank">View on GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
     </div>
 
@@ -815,7 +840,7 @@
         <h3>Accounting / ERP system</h3>
         <div class="tech-tags"><span class="tech-tag">Laravel</span><span class="tech-tag">PHP</span></div>
         <div class="cs-block"><h4>Overview</h4><p>A Laravel accounting and billing system (RightSight). The live demo opens to a sign-in screen.</p></div>
-        <a href="https://rightsightedu.com/rs_accounting/" class="btn btn-ghost" rel="noopener noreferrer">View live demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="https://rightsightedu.com/rs_accounting/" class="btn btn-ghost" rel="noopener noreferrer" target="_blank">View live demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
     </div>
 
@@ -924,7 +949,7 @@
     <div class="exp-list reveal">
       <article class="exp-job">
         <h3>Senior PHP / Laravel / WordPress Developer</h3>
-        <p class="exp-meta">Top Shelf Peptide (<a href="https://topshelfpeptide.com/" rel="noopener noreferrer">topshelfpeptide.com</a>) · US · Remote · Full-time · May 2026 – Present</p>
+        <p class="exp-meta">Top Shelf Peptide (<a href="https://topshelfpeptide.com/" rel="noopener noreferrer" target="_blank">topshelfpeptide.com</a>) · US · Remote · Full-time · May 2026 – Present</p>
         <ul>
           <li>Develop and maintain PHP and Laravel web applications.</li>
           <li>Build, customize and optimize WordPress sites, themes and plugins (Elementor, WooCommerce, ACF).</li>
@@ -934,7 +959,7 @@
       </article>
       <article class="exp-job">
         <h3>WordPress / PHP Backend Developer</h3>
-        <p class="exp-meta">The Digital Navigator · Remote · Nov 2020 – Dec 2025 · <a href="https://thedigitalnavigator.com/" rel="noopener noreferrer">thedigitalnavigator.com</a></p>
+        <p class="exp-meta">The Digital Navigator · Remote · Nov 2020 – Dec 2025 · <a href="https://thedigitalnavigator.com/" rel="noopener noreferrer" target="_blank">thedigitalnavigator.com</a></p>
         <ul>
           <li>Delivered WordPress work including custom themes and plugins, WooCommerce and membership sites.</li>
           <li>Built REST API integrations, including ActiveCampaign and Twilio.</li>
@@ -949,10 +974,10 @@
   <div class="wrap">
     <div class="about-grid">
       <div class="about-photo reveal">
-        <div>
-          <div class="mono-mark">LB</div>
-          <div class="mono-sub">Lawrance Babu Gain</div>
-        </div>
+        <picture>
+          <source srcset="assets/lawrance-babu-gain.webp" type="image/webp">
+          <img src="assets/lawrance-babu-gain.jpg" width="600" height="751" alt="Lawrance Babu Gain" loading="lazy" decoding="async">
+        </picture>
       </div>
       <div class="about-copy reveal">
         <div class="eyebrow">About</div>
@@ -962,6 +987,10 @@
         <div class="care-list">
           <div>15+ years of PHP</div><div>In technology since 2007</div>
           <div>WordPress and Laravel</div><div>US, EU and Asia hours</div>
+        </div>
+        <div class="cv-links">
+          <a href="assets/cv/Lawrance-Babu-Gain-CV-WordPress-Mid.pdf" class="btn btn-ghost" download="Lawrance-Babu-Gain-CV-WordPress-Mid.pdf">Download WordPress CV</a>
+          <a href="assets/cv/Lawrance-Babu-Gain-CV-Laravel-Mid.pdf" class="btn btn-ghost" download="Lawrance-Babu-Gain-CV-Laravel-Mid.pdf">Download Laravel CV</a>
         </div>
       </div>
     </div>
@@ -1009,9 +1038,9 @@
         <p style="color:var(--text-dim); margin-top:18px; font-size:16px; max-width:420px;">Email is the best way to reach me. Tell me what you want to build and I will follow up. You can also find me on LinkedIn, GitHub and Contra.</p>
         <div class="contact-links">
           <a href="mailto:lawrance1020@gmail.com"><span>Email</span>lawrance1020@gmail.com</a>
-          <a href="https://www.linkedin.com/in/lawrance-babu/" rel="noopener noreferrer"><span>LinkedIn</span>linkedin.com/in/lawrance-babu</a>
-          <a href="https://github.com/lawrancebabu" rel="noopener noreferrer"><span>GitHub</span>github.com/lawrancebabu</a>
-          <a href="https://contra.com/lawrance_babu_ujxwj7qm" rel="noopener noreferrer"><span>Contra</span>contra.com/lawrance_babu_ujxwj7qm</a>
+          <a href="https://www.linkedin.com/in/lawrance-babu/" rel="noopener noreferrer" target="_blank"><span>LinkedIn</span>linkedin.com/in/lawrance-babu</a>
+          <a href="https://github.com/lawrancebabu" rel="noopener noreferrer" target="_blank"><span>GitHub</span>github.com/lawrancebabu</a>
+          <a href="https://contra.com/lawrance_babu_ujxwj7qm" rel="noopener noreferrer" target="_blank"><span>Contra</span>contra.com/lawrance_babu_ujxwj7qm</a>
         </div>
       </div>
       <form class="reveal" id="contactForm" action="mailto:lawrance1020@gmail.com" method="post" enctype="text/plain">
@@ -1075,14 +1104,14 @@
       <div class="foot-cols">
         <div class="foot-col">
           <h3 class="foot-h">Navigation</h3>
-          <a href="#home">Home</a><a href="#services">Services</a><a href="#work">Work</a><a href="#experience">Experience</a><a href="#contact">Contact</a>
+          <a href="#home">Home</a><a href="#services">Services</a><a href="#work">Work</a><a href="#experience">Experience</a><a href="#about">About</a><a href="#contact">Contact</a>
         </div>
         <div class="foot-col">
           <h3 class="foot-h">Connect</h3>
           <a href="mailto:lawrance1020@gmail.com">Email</a>
-          <a href="https://www.linkedin.com/in/lawrance-babu/" rel="noopener noreferrer">LinkedIn</a>
-          <a href="https://github.com/lawrancebabu" rel="noopener noreferrer">GitHub</a>
-          <a href="https://contra.com/lawrance_babu_ujxwj7qm" rel="noopener noreferrer">Contra</a>
+          <a href="https://www.linkedin.com/in/lawrance-babu/" rel="noopener noreferrer" target="_blank">LinkedIn</a>
+          <a href="https://github.com/lawrancebabu" rel="noopener noreferrer" target="_blank">GitHub</a>
+          <a href="https://contra.com/lawrance_babu_ujxwj7qm" rel="noopener noreferrer" target="_blank">Contra</a>
         </div>
       </div>
     </div>
@@ -1092,6 +1121,10 @@
     </div>
   </div>
 </footer>
+
+<a href="#home" class="back-to-top" id="backToTop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</a>
 
 <script>
 
@@ -1109,16 +1142,23 @@
   // Mobile menu
   var burger = document.getElementById('burger');
   var mobileMenu = document.getElementById('mobileMenu');
+  function setMenuOpen(open){
+    if(!burger || !mobileMenu) return;
+    mobileMenu.classList.toggle('open', open);
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.body.classList.toggle('menu-open', open);
+  }
   if(burger && mobileMenu){
     burger.addEventListener('click', function(){
-      var open = mobileMenu.classList.toggle('open');
-      burger.classList.toggle('open', open);
-      burger.setAttribute('aria-expanded', open);
+      setMenuOpen(!mobileMenu.classList.contains('open'));
     });
     mobileMenu.querySelectorAll('a').forEach(function(a){
-      a.addEventListener('click', function(){
-        mobileMenu.classList.remove('open'); burger.classList.remove('open'); burger.setAttribute('aria-expanded', false);
-      });
+      a.addEventListener('click', function(){ setMenuOpen(false); });
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape') setMenuOpen(false);
     });
   }
 
@@ -1190,12 +1230,13 @@
       if(timeline) body += '\nTimeline: ' + timeline;
       if(details) body += '\n\n' + details;
       var href = 'mailto:lawrance1020@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      form.setAttribute('data-last-mailto', href);
       if(status){
         status.textContent = 'Opening your email app…';
         status.style.color = 'var(--accent)';
         status.classList.add('show');
       }
-      window.location.href = href;
+      window.location.assign(href);
     });
   }
 
@@ -1208,27 +1249,35 @@
   var loaderStatus = document.getElementById('loaderStatus');
   var heroEl = document.querySelector('.hero');
   var bootMsgs = ['Loading', 'Almost ready', 'Ready'];
-  if(!loader || !heroEl){
+  function hideLoader(){
+    if(loader){
+      loader.classList.add('hide');
+      loader.setAttribute('aria-hidden', 'true');
+    }
     if(heroEl) heroEl.classList.add('loaded');
+  }
+  if(!loader || !heroEl){
+    hideLoader();
   } else if(reduceMotion){
     loader.style.display = 'none';
-    heroEl.classList.add('loaded');
+    hideLoader();
   } else {
-    var prog = 0, msgIdx = 0;
+    var prog = 0, msgIdx = 0, hidden = false;
     var bootTimer = setInterval(function(){
       prog += Math.random()*22 + 12;
       if(prog >= 100){ prog = 100; }
-      loaderFill.style.width = prog + '%';
+      if(loaderFill) loaderFill.style.width = prog + '%';
       var newIdx = Math.min(bootMsgs.length-1, Math.floor(prog/100 * bootMsgs.length));
-      if(newIdx !== msgIdx){ msgIdx = newIdx; loaderStatus.textContent = bootMsgs[msgIdx]; }
-      if(prog >= 100){
+      if(newIdx !== msgIdx){ msgIdx = newIdx; if(loaderStatus) loaderStatus.textContent = bootMsgs[msgIdx]; }
+      if(prog >= 100 && !hidden){
+        hidden = true;
         clearInterval(bootTimer);
-        setTimeout(function(){
-          loader.classList.add('hide');
-          heroEl.classList.add('loaded');
-        }, 220);
+        setTimeout(hideLoader, 220);
       }
     }, 160);
+    setTimeout(function(){
+      if(!hidden){ hidden = true; clearInterval(bootTimer); hideLoader(); }
+    }, 2500);
   }
 
   // ---- Scroll progress bar ----
@@ -1239,6 +1288,21 @@
     if(scrollProgress) scrollProgress.style.width = pct + '%';
   }
   window.addEventListener('scroll', updateScrollProgress, { passive:true });
+
+  var backToTop = document.getElementById('backToTop');
+  function updateBackToTop(){
+    if(!backToTop) return;
+    if(window.scrollY > 480) backToTop.classList.add('visible');
+    else backToTop.classList.remove('visible');
+  }
+  window.addEventListener('scroll', updateBackToTop, { passive:true });
+  updateBackToTop();
+  if(backToTop){
+    backToTop.addEventListener('click', function(e){
+      e.preventDefault();
+      window.scrollTo({ top:0, behavior: reduceMotion ? 'auto' : 'smooth' });
+    });
+  }
 
   // ---- Corner section index ----
   var cornerIndex = document.getElementById('cornerIndex');
