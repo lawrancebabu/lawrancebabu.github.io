@@ -337,14 +337,20 @@
   .about-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; }
   @media (max-width:860px){ .about-grid{ grid-template-columns:1fr; gap:36px; } }
   .about-photo{
-    aspect-ratio:4/5; border:1px solid var(--border); border-radius:6px; background:var(--bg-raised);
-    overflow:hidden; padding:0;
+    aspect-ratio:4/5; border:1px solid var(--accent-line); border-radius:6px;
+    background:#0a0a0b; overflow:hidden; padding:0; position:relative;
   }
+  .about-photo::before, .about-photo::after{
+    content:''; position:absolute; width:16px; height:16px; z-index:2; pointer-events:none;
+    border-color:var(--accent); border-style:solid;
+  }
+  .about-photo::before{ top:8px; left:8px; border-width:1px 0 0 1px; }
+  .about-photo::after{ right:8px; bottom:8px; border-width:0 1px 1px 0; }
   .about-photo picture, .about-photo img{
     width:100%; height:100%; display:block;
   }
   .about-photo img{
-    object-fit:cover; object-position:center 12%; border-radius:6px;
+    object-fit:cover; object-position:center center; border-radius:6px;
   }
   .cv-links{ display:flex; flex-wrap:wrap; gap:12px; margin-top:28px; }
   .cv-links .btn{ padding:11px 18px; font-size:13.5px; }
@@ -976,7 +982,7 @@
       <div class="about-photo reveal">
         <picture>
           <source srcset="assets/lawrance-babu-gain.webp" type="image/webp">
-          <img src="assets/lawrance-babu-gain.jpg" width="600" height="751" alt="Lawrance Babu Gain" loading="lazy" decoding="async">
+          <img src="assets/lawrance-babu-gain.jpg" width="800" height="1000" alt="Lawrance Babu Gain" loading="eager" decoding="async">
         </picture>
       </div>
       <div class="about-copy reveal">
